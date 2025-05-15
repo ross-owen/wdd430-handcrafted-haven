@@ -4,4 +4,5 @@
 * Danny Ellis
 * Carl Mislang
 * David Valentine
-* Ross L. Owen
+* Ross L. Owe
+* Oluwaniyi Akin Oladapo
