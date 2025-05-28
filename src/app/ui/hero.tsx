@@ -12,8 +12,8 @@ export default function Hero() {
                 crafted with care. From intricate jewelry to bespoke home decor and personalized gifts, explore a world
                 of quality craftsmanship, thoughtfully categorized for easy Browse.</p>
             <a href={'/browse'}>Click to get started</a>
-            <div className={`${styles['image-wrapper']}`}>
-                <Image src="/images/hero.webp" alt="Handcrafted Haven" width={430} height={287}/>
+            <div className={`${styles['hero-image-wrapper']}`}>
+                <Image src="/images/hero_large.webp" alt="Handcrafted Haven" width={430} height={287}/>
             </div>
         </section>
     );

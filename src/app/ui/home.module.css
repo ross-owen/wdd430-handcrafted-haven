@@ -1,6 +1,6 @@
 ﻿
 /* HERO SECTION */
-.image-wrapper {
+.hero-image-wrapper {
     padding-top: 1.2rem;
     height: 400px;
     overflow: hidden;
@@ -32,4 +32,49 @@
     padding: 0.5rem 1rem;
     background-color: var(--background);
     color: var(--secondary-color);
+}
+
+
+/* SELLER SPOTLIGHT */
+.seller-spotlight {
+    width: 80%;
+    align-items: center;
+    margin: auto;
+}
+
+.seller-spotlight h2 {
+    margin-top: 0;
+}
+
+.seller-spotlight h3,
+.seller-spotlight h4 {
+    margin-bottom: 0;
+}
+
+.seller-spotlight p {
+    margin-top: 0.5rem;
+}
+
+.seller-spotlight-wrapper {
+
+}
+
+.seller-image-wrapper {
+    height: 400px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.seller-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (min-width: 600px) {
+    .seller-spotlight {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+    }
 }

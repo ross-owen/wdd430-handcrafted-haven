@@ -3,38 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #343433;
-  --secondary-color: #733d35;
-  --accent1-color: #e4c3a6;
-  --accent2-color: #297ea5;
-  --accent3-color: #F3F1E6;
+    --primary-color: #343433;
+    --secondary-color: #733d35;
+    --accent1-color: #e4c3a6;
+    --accent2-color: #297ea5;
+    --accent3-color: #F3F1E6;
 
-  --background: #fefefe;
+    --background: #fefefe;
 
-  --radius: 5px;
+    --radius: 5px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--primary-color);
-  --font-sans: var(--font-inter-sans);
-  --font-mono: var(--font-inter-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--primary-color);
+    --font-sans: var(--font-inter-sans);
+    --font-mono: var(--font-inter-mono);
 }
 
 body {
-  padding: 0 2rem;
-  font-family: Inter, sans-serif;
-  background: var(--background);
-  color: var(--primary-color);
+    padding: 0 2rem;
+    font-family: Inter, sans-serif;
+    background: var(--background);
+    color: var(--primary-color);
+}
+
+section {
+    padding-bottom: 1.5rem;
+}
+
+h2 {
+    color: var(--secondary-color);
 }
 
 @media screen and (min-width: 600px) {
-  body {
-    max-width: 1200px;
-    margin: auto;
-    margin: 0;
-    padding: 0;
-  }
+    body {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    section {
+        padding-bottom: 3rem;
+    }
 }
 
 /* NAV SECTION */
@@ -59,14 +70,14 @@ header {
 }
 
 .nav-items {
-  display: flex;
-  gap: 2rem;
-  justify-content: space-between;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
 }
 
 .nav-links:hover {
-  color: var(--accent1-color);
-  text-decoration: underline;
+    color: var(--accent1-color);
+    text-decoration: underline;
 }
 
 .category-dropdown {
@@ -91,18 +102,18 @@ header {
 }
 
 .dropdown-link {
-  display: block;
-  width: 100%;
-  padding: 0.25rem 0.5rem;
-  margin: 0;
-  white-space: nowrap;
-  text-decoration: none;
-  color: var(--primary-color);
-  box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--primary-color);
+    box-sizing: border-box;
 }
 
 .dropdown-link:hover {
-  color: var(--accent1-color);
-  text-decoration: underline;
+    color: var(--accent1-color);
+    text-decoration: underline;
 }
 
