@@ -14,6 +14,10 @@
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+    "@heroicons/react": "^2.2.0",
+    "clsx": "^2.1.1",
+    "next-auth": "5.0.0-beta.28",
+    "zod": "^3.25.39"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
