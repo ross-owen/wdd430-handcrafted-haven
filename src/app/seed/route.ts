@@ -26,7 +26,7 @@ async function seedSellers() {
 		sellers.map(async (seller) => {
 			const hashedPassword = await bcrypt.hash(seller.password, 10);
 			return sql`
-        INSERT INTO users (id, first_name, last_name, description, location, email, password, created, modified, profile_pic)
+        INSERT INTO sellers (id, first_name, last_name, description, location, email, password, created, modified, profile_pic)
         VALUES (${seller.id}, ${seller.first_name}, ${seller.last_name}, ${seller.description}, ${seller.location}, ${seller.email}, ${hashedPassword}, ${seller.created}, ${seller.modified}, ${seller.profile_pic})
         ON CONFLICT (id) DO NOTHING;
       `;
@@ -56,7 +56,7 @@ async function seedItems() {
 	const insertedItems = await Promise.all(
 		items.map(
 			(item) => sql`
-        INSERT INTO items ("seller_id", "category_id", price, description, title, created, modified, "imagName")
+        INSERT INTO items ("seller_id", "category_id", price, description, title, created, modified, image_name)
         VALUES (
           ${item.seller_id},
           ${item.category_id},
@@ -137,7 +137,7 @@ export async function GET() {
 	try {
 		const result = await sql.begin((sql) => [
 			seedSellers(),
-            seedCategories(),
+      seedCategories(),
 			seedItems(),
 			seedRatings(),
 		]);
