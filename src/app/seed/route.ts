@@ -10,15 +10,15 @@ async function seedSellers() {
     await sql`
     CREATE TABLE IF NOT EXISTS sellers (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        "fName" VARCHAR(50) NOT NULL,
-        "lName" VARCHAR(50) NOT NULL,
+        first_name VARCHAR(50) NOT NULL,
+        last_name VARCHAR(50) NOT NULL,
         description TEXT,
         location VARCHAR(100),
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
         created TIMESTAMP,
         modified TIMESTAMP,
-        "profilePic" VARCHAR(255)
+        profile_pic VARCHAR(255)
     );
     `;
 
@@ -26,8 +26,8 @@ async function seedSellers() {
 		sellers.map(async (seller) => {
 			const hashedPassword = await bcrypt.hash(seller.password, 10);
 			return sql`
-        INSERT INTO users (id, fName, lName, description, location, email, password, created, modified, profilePic)
-        VALUES (${seller.id}, ${seller.fName}, ${seller.lName}, ${seller.description}, ${seller.location}, ${seller.email}, ${hashedPassword}, ${seller.created}, ${seller.modified}, ${seller.profilePic})
+        INSERT INTO users (id, first_name, last_name, description, location, email, password, created, modified, profile_pic)
+        VALUES (${seller.id}, ${seller.first_name}, ${seller.last_name}, ${seller.description}, ${seller.location}, ${seller.email}, ${hashedPassword}, ${seller.created}, ${seller.modified}, ${seller.profile_pic})
         ON CONFLICT (id) DO NOTHING;
       `;
 		})
@@ -42,30 +42,30 @@ async function seedItems() {
 	await sql`
     CREATE TABLE IF NOT EXISTS items (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      "sellerId" UUID NOT NULL,
-      "categoryId" UUID NOT NULL,
+      seller_id UUID NOT NULL,
+      category_id UUID NOT NULL,
       price NUMERIC(10, 2) NOT NULL,
       description TEXT,
       title VARCHAR(255) NOT NULL,
       created TIMESTAMP,
       modified TIMESTAMP,
-      "imageName" VARCHAR(255)
+      image_name VARCHAR(255)
     );
   `;
 
 	const insertedItems = await Promise.all(
 		items.map(
 			(item) => sql`
-        INSERT INTO items ("sellerId", "categoryId", price, description, title, created, modified, "imagName")
+        INSERT INTO items ("seller_id", "category_id", price, description, title, created, modified, "imagName")
         VALUES (
-          ${item.sellerId},
-          ${item.categoryId},
+          ${item.seller_id},
+          ${item.category_id},
           ${item.price},
           ${item.description},
           ${item.title},
           ${item.created},
           ${item.modified},
-          ${item.imageName}
+          ${item.image_name}
         )
         ON CONFLICT (id) DO NOTHING;
       `

@@ -1,8 +1,8 @@
 const sellers = [
 	{
 		id: '410544b2-4001-4271-9855-fec4b6a6442a',
-		fName: 'Danny',
-		lName: 'Smith',
+		first_name: 'Danny',
+		last_name: 'Smith',
 		description:
 			'I am a passionate artist. I love to create unique and useful pottery objects',
 		location: 'New York, New York',
@@ -10,12 +10,12 @@ const sellers = [
 		password: '123456',
 		created: '1/1/2025 13:00',
 		modified: '1/8/2025 18:36',
-        profilePic: 'dSmith_profile.png'
+        profile_pic: 'dSmith_profile.png'
 	},
 	{
 		id: 'a0f88e4a-2f3b-4b0a-8f3c-cd2adad8dc9e',
-		fName: 'John',
-		lName: 'Dirk',
+		first_name: 'John',
+		last_name: 'Dirk',
 		description:
 			'I love to put pen to paper and just draw. My unique style of painting is done in one go, never lifting the pen from the paper',
 		location: 'Salt Lake City, Utah',
@@ -23,98 +23,98 @@ const sellers = [
 		password: '123456',
 		created: '3/1/2025 06:00',
 		modified: '5/8/2025 03:15',
-        profilePic: 'jDirk_profile.png'
+        profile_pic: 'jDirk_profile.png'
 	},
 ];
 
 const items = [
     {
         id: '1fa85f64-5717-4562-b3fc-2c963f66afa1',
-        sellerId: sellers[0].id,
-        categoryId: '7b4d755d-83c1-4d68-91f3-dc4297a2db1e',
+        seller_id: sellers[0].id,
+        category_id: '7b4d755d-83c1-4d68-91f3-dc4297a2db1e',
         price: '35.00',
         description: 'A beautifully handcrafted pottery bowl.',
         title: 'Pottery Bowl',
         created: '1/10/2025 10:00',
         modified: '1/10/2025 10:30',
-        imageName: 'potteryBowl.png'
+        image_name: 'potteryBowl.png'
     },
     {
         id: '2a51d22c-df3e-42cb-9451-bcf24c51bc98',
-        sellerId: sellers[0].id,
-        categoryId: 'fa8e1a4d-0e8d-4b20-935d-92cb768e71fa',
+        seller_id: sellers[0].id,
+        category_id: 'fa8e1a4d-0e8d-4b20-935d-92cb768e71fa',
         price: '120.00',
         description: 'Colorful painting on canvas representing nature.',
         title: 'Nature Painting',
         created: '1/11/2025 11:00',
         modified: '1/11/2025 11:45',
-        imageName: 'naturePainting.png'
+        image_name: 'naturePainting.png'
     },
     {
         id: '49a4626a-6f6b-4e9c-a7d2-86e7e42f1c1e',
-        sellerId: sellers[0].id,
-        categoryId: '4c1c7e94-0982-4d13-99cb-ecc71dd00e35',
+        seller_id: sellers[0].id,
+        category_id: '4c1c7e94-0982-4d13-99cb-ecc71dd00e35',
         price: '40.00',
         description: 'Stylish handwoven bracelet made from recycled materials.',
         title: 'Woven Bracelet',
         created: '1/12/2025 09:00',
         modified: '1/12/2025 09:20',
-        imageName: 'wovenBracelet.png'
+        image_name: 'wovenBracelet.png'
     },
     {
         id: 'f630e67b-3eb2-4cd4-9507-d45376db1cb7',
-        sellerId: sellers[0].id,
-        categoryId: 'd2346f56-61e2-4a91-ae0a-e0ae7f252733',
+        seller_id: sellers[0].id,
+        category_id: 'd2346f56-61e2-4a91-ae0a-e0ae7f252733',
         price: '75.00',
         description: 'Hand-stitched wool sweater perfect for winter.',
         title: 'Wool Sweater',
         created: '1/13/2025 14:00',
         modified: '1/13/2025 14:30',
-        imageName: 'woolSweater.png'
+        image_name: 'woolSweater.png'
     },
     {
         id: 'c6e36e1b-d3c7-4d2d-a531-01b92c9622ae',
-        sellerId: sellers[1].id,
-        categoryId: '7b4d755d-83c1-4d68-91f3-dc4297a2db1e',
+        seller_id: sellers[1].id,
+        category_id: '7b4d755d-83c1-4d68-91f3-dc4297a2db1e',
         price: '50.00',
         description: 'Clay sculpture of a bird, handcrafted and painted.',
         title: 'Clay Bird Sculpture',
         created: '3/10/2025 10:00',
         modified: '3/10/2025 10:30',
-        imageName: 'clayBird.png'
+        image_name: 'clayBird.png'
     },
     {
         id: 'edc13e08-7814-4a8d-949a-3bcf01d8db18',
-        sellerId: sellers[1].id,
-        categoryId: 'fa8e1a4d-0e8d-4b20-935d-92cb768e71fa',
+        seller_id: sellers[1].id,
+        category_id: 'fa8e1a4d-0e8d-4b20-935d-92cb768e71fa',
         price: '95.00',
         description: 'Abstract ink illustration done in a single stroke.',
         title: 'Ink Illustration',
         created: '3/11/2025 11:00',
         modified: '3/11/2025 11:45',
-        imageName: 'inkIllustration.png'
+        image_name: 'inkIllustration.png'
     },
     {
         id: '439c2f08-97f9-45db-877b-967f9f142108',
-        sellerId: sellers[1].id,
-        categoryId: '4c1c7e94-0982-4d13-99cb-ecc71dd00e35',
+        seller_id: sellers[1].id,
+        category_id: '4c1c7e94-0982-4d13-99cb-ecc71dd00e35',
         price: '60.00',
         description: 'Silver necklace with a hand-engraved pendant.',
         title: 'Engraved Necklace',
         created: '3/12/2025 09:00',
         modified: '3/12/2025 09:20',
-        imageName: 'silverNecklace.png'
+        image_name: 'silverNecklace.png'
     },
     {
         id: '05c45f77-1c11-4b4d-bd42-04b6ce9a9f58',
-        sellerId: sellers[1].id,
-        categoryId: 'd2346f56-61e2-4a91-ae0a-e0ae7f252733',
+        seller_id: sellers[1].id,
+        category_id: 'd2346f56-61e2-4a91-ae0a-e0ae7f252733',
         price: '85.00',
         description: 'Linen tunic with hand-painted floral designs.',
         title: 'Floral Tunic',
         created: '3/13/2025 14:00',
         modified: '3/13/2025 14:30',
-        imageName: 'floralTunic.png'
+        image_name: 'floralTunic.png'
     }
 ]
 
