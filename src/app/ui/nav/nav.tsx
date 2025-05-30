@@ -1,4 +1,3 @@
-import { inter } from '@/app/ui/fonts';
 import Link from 'next/link';
 import Categories from './categories';
 
