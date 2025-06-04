@@ -50,8 +50,75 @@ h2 {
 
 /* NAV SECTION */
 header {
-    background-color: red;
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    padding: .5rem;
 }
 
+.nav {
+    position: relative;
+}
+
+header > .nav > ul.mobile-menu {
+  display: none;
+}
+
+.nav > ul> li {
+    list-style: none;
+}
+
+.nav > ul > li > a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav > ul > li > a.active {
+    text-decoration: underline;
+}
+
+.hamburger-button {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+header > .nav > ul.mobile-menu.open {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 5rem;
+  width: 100%;
+  flex-direction: column;
+  background: var(--background);
+  z-index: 10;
+  opacity: 90%;
+  gap: .25rem;
+}
+
+.nav > button{
+    width: 100%;
+    text-align: right;
+}
+
+@media screen and (min-width: 600px) {
+  .hamburger-button {
+    display: none;
+  }
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+  }
+
+  header > .nav > ul.mobile-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
