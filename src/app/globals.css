@@ -49,76 +49,85 @@ h2 {
 }
 
 /* NAV SECTION */
-
 header {
-    width: 100%;
     display: flex;
-    box-sizing: border-box;
     justify-content: space-between;
-    align-items: center;
-    background-color: var(--accent3-color);
-    padding: 1rem 2rem;
+    padding: .5rem;
 }
 
-
-img {
-    border-radius: 2px;
+.nav {
+  position: relative;
 }
 
-.nav-links {
-    display: flex;
-    align-items: center;
+header > .nav > ul.mobile-menu {
+  display: none;
+}
+.nav > ul {
+  padding: .5rem;
+}
+
+.nav > ul> li {
+    list-style: none;
+}
+
+.nav > ul > li > a {
     text-decoration: none;
-    color: var(--primary-color);
-    width: 100%;
-    padding: 1rem;
+    color: black;
 }
 
-.nav-items {
-    display: flex;
-    gap: 2rem;
-    justify-content: space-between;
-}
-
-.nav-links:hover {
-    color: var(--accent1-color);
+.nav > ul > li > a.active {
     text-decoration: underline;
 }
 
-.category-dropdown {
-    position: relative;
+.hamburger-button {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-.dropdown-title {
-    cursor: pointer;
+header > .nav > ul.mobile-menu.open {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  flex-direction: column;
+  background: var(--background);
+  z-index: 10;
+  opacity: 90%;
+  gap: .25rem;
 }
 
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--accent3-color);
-    border: 1px solid var(--secondary-color);
-    border-radius: var(--radius);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    z-index: 1000;
-}
-
-.dropdown-link {
-    display: block;
+.nav > button{
     width: 100%;
-    padding: 0.25rem 0.5rem;
-    margin: 0;
-    white-space: nowrap;
-    text-decoration: none;
-    color: var(--primary-color);
-    box-sizing: border-box;
+    text-align: right;
 }
 
-.dropdown-link:hover {
-    color: var(--accent1-color);
-    text-decoration: underline;
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
+@media screen and (min-width: 600px) {
+  .hamburger-button {
+    display: none;
+  }
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+  }
+
+  header > .nav > ul.mobile-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
