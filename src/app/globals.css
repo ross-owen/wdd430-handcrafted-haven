@@ -104,6 +104,13 @@ header > .nav > ul.mobile-menu.open {
     text-align: right;
 }
 
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
 @media screen and (min-width: 600px) {
   .hamburger-button {
     display: none;
