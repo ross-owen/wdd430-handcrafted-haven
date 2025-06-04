@@ -56,11 +56,14 @@ header {
 }
 
 .nav {
-    position: relative;
+  position: relative;
 }
 
 header > .nav > ul.mobile-menu {
   display: none;
+}
+.nav > ul {
+  padding: .5rem;
 }
 
 .nav > ul> li {
@@ -88,8 +91,7 @@ header > .nav > ul.mobile-menu.open {
   display: flex;
   position: absolute;
   top: 0;
-  right: 5rem;
-  width: 100%;
+  right: 1rem;
   flex-direction: column;
   background: var(--background);
   z-index: 10;
