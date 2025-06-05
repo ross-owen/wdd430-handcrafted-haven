@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { fetchFilteredItems } from '@/app/lib/data';
 import styles from '@/app/ui/browse.module.css';
 import StarRating from './star';
+import Link from 'next/link';
 
 export default async function ResultsTable({
 	query,
@@ -16,19 +17,27 @@ export default async function ResultsTable({
 		<div className={`${styles['results-container']}`}>
 			{items?.map((item) => (
 				<div key={item.id} className={`${styles['results-item']}`}>
-					<Image
-						src={`/images/${item.image_name}`}
-						width={600}
-						height={600}
-						alt={`${item.title} product image`}
-						className={`${styles['results-image']}`}
-					/>
+					{/* This link path may need to be adjusted */}
+					<div className={styles['results-image-wrapper']}>
+						<Link href={`/products/${item.id}`}>
+							<Image
+								className={styles['results-image']}
+								src={`/images/${item.image_name}`}
+								width={600}
+								height={600}
+								alt={`${item.title} product image`}
+							/>
+						</Link>
+					</div>
 					<div className={`${styles['results-details']}`}>
 						<div className={`${styles['results-title-seller']}`}>
 							<h2>{item.title}</h2>
-							<p>
-								{item.first_name} {item.last_name}
-							</p>
+							{/* This link path may need to be adjusted */}
+							<Link href={`/sellers/${item.seller_id}`}>
+								<p>
+									{item.first_name} {item.last_name}
+								</p>
+							</Link>
 						</div>
 						<p>{item.description}</p>
 						<div className={`${styles['results-price-rating']}`}>
