@@ -8,7 +8,7 @@ import {
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 10;
 export async function fetchFilteredItems(
 	query: string,
 	currentPage: number
