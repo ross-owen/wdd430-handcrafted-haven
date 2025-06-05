@@ -14,6 +14,15 @@ async function listItems() {
 	return data;
 }
 
+async function getSellerItems() {
+	const seller_id = '410544b2-4001-4271-9855-fec4b6a6442a';
+	const data = await sql`
+	SELECT items.title, sellers.first_name FROM ITEMS
+	JOIN sellers on items.seller_id = sellers.id
+	WHERE items.seller_id = ${seller_id}`;
+	return data
+}
+
 async function getItemRatings() {
 	const item_id = '7c85a8b0-08da-48ef-8a9a-4e087f14f9c9';
 	const data = await sql`
@@ -35,9 +44,14 @@ async function getAllItems() {
 	return data
 }
 
+async function getAllSellers() {
+	const data = await sql`SELECT * FROM sellers`;
+	return data
+}
+
 export async function GET() {
 	try {
-		return Response.json(await getAllRatings());
+		return Response.json(await getSellerItems());
 	} catch (error) {
 		return Response.json({ error }, { status: 500 });
 	}
