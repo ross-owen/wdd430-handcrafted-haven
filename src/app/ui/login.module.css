@@ -1,0 +1,21 @@
+.login-wrapper h1 {
+    font-size: 2rem;
+}
+
+.form-field {
+    padding-bottom: 1.5rem;
+}
+
+.form-field label {
+    display: block;
+    padding-bottom: 0.25rem;
+}
+
+@media screen and (min-width: 600px) {
+    .login-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        justify-items: center;
+    }
+}
