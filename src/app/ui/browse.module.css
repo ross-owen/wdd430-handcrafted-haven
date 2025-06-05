@@ -25,9 +25,19 @@
   max-width: 400px;
 }
 
-.results-details > h2 {
-  margin: 0 auto;
+.results-title-seller {
+  display: flex;
+  justify-content: space-between;
 }
+
+.results-title-seller > h2 {
+  margin: 0;
+}
+
+.results-title-seller > p {
+  margin: 0;
+}
+
 
 .results-details > p {
   margin: 0 auto;

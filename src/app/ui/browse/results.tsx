@@ -24,7 +24,12 @@ export default async function ResultsTable({
 						className={`${styles['results-image']}`}
 					/>
 					<div className={`${styles['results-details']}`}>
-						<h2>{item.title}</h2>
+						<div className={`${styles['results-title-seller']}`}>
+							<h2>{item.title}</h2>
+							<p>
+								{item.first_name} {item.last_name}
+							</p>
+						</div>
 						<p>{item.description}</p>
 						<div className={`${styles['results-price-rating']}`}>
 							<p>${item.price}</p>
