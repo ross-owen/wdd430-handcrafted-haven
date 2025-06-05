@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { fetchFilteredItems } from '@/app/lib/data';
 
-export default async function Results({
+export default async function ResultsTable({
 	query,
 	currentPage,
 }: {
@@ -11,21 +11,33 @@ export default async function Results({
 	const items = await fetchFilteredItems(query, currentPage);
 
 	return (
-		<div className="mt-6 flow-root">
-			<div className="inline-block min-w-full align-middle">
-				<div className="rounded-lg bg-gray-50 p-2 md:pt-0">
-					<div className="md:hidden">
-						{items?.map((item) => (
-							<div
-								key={item.id}
-								className="mb-2 w-full rounded-md bg-white p-4"
-							>
-                            <p>{item.title}</p>
-							</div>
-						))}
+		<div className="results-container">
+			{items?.map((item) => (
+				<div key={item.id} className="results-item">
+					<Image
+						src={`/images/${item.image_name}`}
+						width={100}
+						height={100}
+						alt={`${item.title} product image`}
+						className="results-image"
+					/>
+					<div className="results-details">
+						<h2>{item.title}</h2>
+						<p>${item.price}</p>
+						<p>{item.description}</p>
+						<p>
+							<span>Seller:</span> {item.first_name} {item.last_name}
+						</p>
+						<p>
+							<span>Category:</span> {item.category_name}
+						</p>
+						<p>
+							<span>Average Rating:</span>{' '}
+							{Number(item.average_rating).toFixed(1)}
+						</p>
 					</div>
 				</div>
-			</div>
+			))}
 		</div>
 	);
 }

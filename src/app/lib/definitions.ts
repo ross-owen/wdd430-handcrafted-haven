@@ -31,7 +31,7 @@ export type Category = {
 
 export type Rating = {
     id: string,
-    itemId: string,
+    item_id: string,
     rating: number,
     review: string,
     created: string,
