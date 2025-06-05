@@ -36,6 +36,30 @@ h1, h2 {
   color: var(--secondary-color);
 }
 
+/* FORM ELEMENTS */
+input {
+  max-width: 20em;
+  height: 2em;
+  font-size: 1.2rem;
+}
+
+button {
+  padding: 0 2em;
+  height: 2em;
+  font-size: 1.2em;
+  color: var(--background);
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+button:hover {
+  color: var(--secondary-color);
+  background-color: var(--background);
+}
+
+/* END FORM ELEMENTS */
+
 
 /* NAV SECTION */
 header {
@@ -74,7 +98,9 @@ header > .nav > ul.mobile-menu {
   background: none;
   border: none;
   font-size: 1.5rem;
+  color: black;
   cursor: pointer;
+  padding: 0;
 }
 
 header > .nav > ul.mobile-menu.open {
@@ -92,6 +118,7 @@ header > .nav > ul.mobile-menu.open {
 .nav > button {
   width: 100%;
   text-align: right;
+  color: black;
 }
 
 footer {
@@ -100,30 +127,6 @@ footer {
   justify-content: space-between;
   padding: 1rem;
 }
-
-/* FORM ELEMENTS */
-input {
-  max-width: 20em;
-  height: 2em;
-  font-size: 1.2rem;
-}
-
-button {
-  padding: 0 2em;
-  height: 2em;
-  font-size: 1.2em;
-  color: var(--background);
-  background-color: var(--secondary-color);
-  border: 1px solid var(--secondary-color);
-  border-radius: var(--radius);
-  cursor: pointer;
-}
-button:hover {
-  color: var(--secondary-color);
-  background-color: var(--background);
-}
-
-/* END FORM ELEMENTS */
 
 @media screen and (min-width: 600px) {
   body {
