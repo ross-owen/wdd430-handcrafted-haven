@@ -26,6 +26,16 @@
     margin-bottom: 2rem;
 }
 
+.create-item-form label {
+    margin-bottom: 5px;
+}
+
+.create-item-form select {
+    max-width: 385px;
+    font-size: 1.2rem;
+    padding: .5rem;
+}
+
 .create-item-form-buttons {
     display: flex;
     gap: .5rem;
