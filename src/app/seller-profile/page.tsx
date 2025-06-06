@@ -1,4 +1,4 @@
-import {Metadata} from 'next';
+﻿import {Metadata} from 'next';
 import {auth} from '@/auth';
 import {redirect} from 'next/navigation';
 import {Suspense} from "react";
@@ -55,6 +55,13 @@ export default async function SellerProfile() {
         <Suspense>
           <SellerProfileDetail seller={seller}/>
         </Suspense>
+        <div>
+            <h2>Seller Collection</h2>
+            <Suspense>
+                {/*<SellerCollection />*/}
+            </Suspense>
+            <CreateItem />
+        </div>
       </main>
   );
 

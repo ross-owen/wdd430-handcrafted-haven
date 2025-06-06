@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { createItem, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
+import styles from './create.module.css';
 
 export default function Form() {
     
@@ -11,8 +12,28 @@ export default function Form() {
   const [state, formAction] = useActionState(createItem, initialState);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} className={styles['create-item-form']}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
+
+        {/* Item Image */}
+        <div className="mb-4">
+          <label htmlFor="itemImage" className="mb-2 block text-sm font-medium">
+            Upload item image
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="itemImage"
+                name="itemImage"
+                type="file"
+                step="0.01"
+                placeholder="Upload item image"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                aria-describedby='item-image-error'
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Item Name */}
         <div className="mb-4">
@@ -32,7 +53,7 @@ export default function Form() {
               />
             </div>
           </div>
-          <div id="item-name-error" aria-live="polite" aria-atomic="true">
+          <div id="itemName-error" aria-live="polite" aria-atomic="true">
             {state.errors?.itemName &&
               state.errors.itemName.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
@@ -88,7 +109,7 @@ export default function Form() {
               />
             </div>
           </div>
-          <div id="item-name-error" aria-live="polite" aria-atomic="true">
+          <div id="itemDescription-error" aria-live="polite" aria-atomic="true">
             {state.errors?.itemDescription &&
               state.errors.itemDescription.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
@@ -98,14 +119,13 @@ export default function Form() {
           </div>
         </div>
       </div>
-      <div className="mt-6 flex justify-end gap-4">
+      <div className={styles['create-item-form-buttons']}>
+        <Button type="submit">Create Item</Button>
         <Link
-          href="/dashboard/invoices"
-          className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+          href="/seller-profile"
         >
           Cancel
         </Link>
-        <Button type="submit">Create Item</Button>
       </div>
     </form>
   );

@@ -7,7 +7,7 @@ export function CreateItem() {
       href="/seller-profile/create"
       className={styles['create-item-button']}
     >
-      <span>Create Item</span>
+      <span>Create</span>
     </Link>
   );
 }

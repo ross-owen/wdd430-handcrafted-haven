@@ -1,3 +1,4 @@
+/* Create button in the seller profile page */
 .create-item-button {
     border-radius: 5px;
     background-color: black;
@@ -7,16 +8,38 @@
     text-decoration: none;
     display: flex;
     justify-content: center;
-    max-width: 500px;
-    margin-top: 100px;
+    max-width: 350px;
 }
 
 .create-item-button:hover {
     background-color: rgb(36, 36, 36);
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 600px) {
     .create-item-button {
-        margin-left: 5%;
+        margin-left: 0;
     }
+}
+
+/* Creat item form styling */
+.create-item-form > div > div{
+    margin-bottom: 2rem;
+}
+
+.create-item-form-buttons {
+    display: flex;
+    gap: .5rem;
+}
+.create-item-form-buttons a {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding: .5rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.create-item-form-buttons a:hover {
+    background-color: white;
+    color: black;
 }
