@@ -6,6 +6,7 @@ import SellerProfileDetail from "@/app/ui/seller-profile-detail";
 import type {Seller} from '@/app/lib/definitions';
 import postgres from 'postgres';
 import {snakeToCamel} from '@/app/lib/utils';
+import { CreateItem } from '@/app/ui/seller-profile/buttons';
 
 const sql = postgres(process.env.POSTGRES_URL!, {ssl: 'require'});
 
@@ -54,6 +55,14 @@ export default async function SellerProfile() {
         <Suspense>
           <SellerProfileDetail seller={seller}/>
         </Suspense>
+        <div>
+            <h2>Seller Collection</h2>
+            <Suspense>
+                {/*<SellerCollection />*/}
+            </Suspense>
+            <CreateItem />
+        </div>
       </main>
   );
+
 }
