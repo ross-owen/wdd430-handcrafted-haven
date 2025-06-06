@@ -1,0 +1,22 @@
+.seller-wrapper h1 {
+    font-size: 2rem;
+}
+
+.fieldset h4 {
+    margin: 0;
+    padding: 0.5rem 0;
+    color: var(--accent1-color);
+}
+.fieldset p {
+    margin: 0;
+    padding: 0 0 0.8rem 0;
+}
+
+@media screen and (min-width: 600px) {
+    .seller-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        justify-items: center;
+    }
+}

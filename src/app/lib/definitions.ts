@@ -3,8 +3,10 @@
     firstName: string;
     lastName: string;
     description: string;
+    location: string;
     email: string;
     password: string;
-    created: string;
-    modified: string;
+    created: Date;
+    modified: Date;
+    profilePic: string;
 };
