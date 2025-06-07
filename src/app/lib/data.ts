@@ -78,3 +78,9 @@ export async function fetchItemsPages(query: string) {
 		throw new Error('Failed to fetch total number of items.');
 	}
 }
+
+export async function fetchSellerByEmail(email: string) {
+	const data = await sql<Seller[]>`SELECT * FROM sellers WHERE email = ${email}`;
+	return data[0]
+}
+
