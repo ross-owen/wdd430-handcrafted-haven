@@ -1,16 +1,21 @@
-import { Metadata } from "next";
-import Browse from "@/app/ui/browse/browse";
-import Catalog from "@/app/ui/browse/browse";
-import styles from "@/app/ui/browse/browse.module.css";
 
-export const metadata: Metadata = {
-  title: "Catalog Search",
-};
+import { fetchItemsPages } from '@/app/lib/data';
+import ResultsTable from '@/app/ui/browse/results';
 
-export default function itemDetails() {
-  return (
-    <main className={styles.catalogPage}>
-      <Browse />
-    </main>
-  );
+export default async function Page(props: {
+	searchParams?: Promise<{
+		query?: string;
+		page?: string;
+	}>;
+}) {
+	const searchParams = await props.searchParams;
+	const query = searchParams?.query || '';
+	const currentPage = Number(searchParams?.page) || 1;
+	const totalPages = await fetchItemsPages(query);
+	return (
+		<main>
+			<ResultsTable query={query} currentPage={currentPage} />
+		</main>
+	);
+
 }

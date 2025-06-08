@@ -28,9 +28,9 @@ export default function Header() {
 						<li>
 							<Link href="/browse" className={pathname === "/browse" ? "active" : ""}>Browse</Link>
 						</li>
-						<li>
+						{/* <li>
 							<Link href="/search" className={pathname === "/search" ? "active" : ""}>Search</Link>
-						</li>
+						</li> */}
 						<li>
 							<Link href="/login" className={pathname === "/login" ? "active" : ""}>Seller Login</Link>
 						</li>

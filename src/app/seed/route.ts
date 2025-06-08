@@ -156,7 +156,7 @@ async function seedRatings() {
             uuid_generate_v4
         (
         ) PRIMARY KEY,
-            "itemId" UUID NOT NULL,
+            "item_id" UUID NOT NULL,
             rating INT NOT NULL CHECK
         (
             rating
@@ -177,9 +177,9 @@ async function seedRatings() {
     const insertedRatings = await Promise.all(
         ratings.map(
             (rating) => sql`
-                INSERT INTO ratings (id, "itemId", rating, review, created, name)
+                INSERT INTO ratings (id, item_id, rating, review, created, name)
                 VALUES (${rating.id},
-                        ${rating.itemId},
+                        ${rating.item_id},
                         ${rating.rating},
                         ${rating.review},
                         ${rating.created},
@@ -194,9 +194,9 @@ async function seedRatings() {
 export async function GET() {
     try {
         await sql.begin(() => [
-            seedSellers(),
-            seedCategories(),
-            seedItems(),
+            // seedSellers(),
+            // seedCategories(),
+            // seedItems(),
             seedRatings(),
         ]);
 
