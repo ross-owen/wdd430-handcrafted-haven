@@ -1,4 +1,5 @@
 import Form from '@/app/ui/seller-profile/create-item-form';
+import { fetchCategories } from '@/app/lib/data';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  const categories = await fetchCategories();
  
   return (
     <main>
@@ -19,7 +21,7 @@ export default async function Page() {
           },
         ]}
       />*/}
-      <Form />
+      <Form categories={categories}/>
     </main>
   );
 }

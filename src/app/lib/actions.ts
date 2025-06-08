@@ -18,8 +18,6 @@ const FormSchema = z.object({
         .gt(0, { message: 'Please enter an amount greater than $0.' }),
     description: z.string(),
     title: z.string(),
-    created: z.string(),
-    modified: z.string(),
     image_name: z.string(),
 });
 
@@ -32,8 +30,6 @@ export type State = {
     price?: string[];
     description?: string[];
     title?: string[];
-    created?: string[];
-    modified?: string[];
     image_name?: string[];
   };
   message?: string | null;
@@ -65,8 +61,6 @@ export async function createItem(prevState: State, formData: FormData) {
     price: formData.get('price'),
     description: formData.get('description'),
     title: formData.get('title'),
-    created: formData.get('created'),
-    modified: formData.get('modified'),
     image_name: formData.get('image-name'),
   });
 
@@ -77,13 +71,14 @@ export async function createItem(prevState: State, formData: FormData) {
     };
   }
 
-  const { seller_id, category_id, price, description, title, created, modified, image_name } = validatedFields.data;
+  const { seller_id, category_id, price, description, title, image_name } = validatedFields.data;
   const priceInCents = price * 100;
+  const created = new Date().toISOString().split('T')[0];
 
   try {
     await sql`
-      INSERT INTO items (seller_id, category_id, price, description, title, created, modified, image_name)
-      VALUES (${seller_id}, ${category_id}, ${priceInCents}, ${description},  ${title},  ${created},  ${modified},  ${image_name})
+      INSERT INTO items (seller_id, category_id, price, description, title, created, image_name)
+      VALUES (${seller_id}, ${category_id}, ${priceInCents}, ${description}, ${title}, ${created}, ${image_name})
     `;
   } catch (error) {
     // We'll log the error to the console for now

@@ -21,7 +21,10 @@
     }
 }
 
-/* Creat item form styling */
+/* Create item form styling */
+.create-item-form input:read-only {
+    background-color:lightgray;
+}
 .create-item-form > div > div{
     margin-bottom: 2rem;
 }
