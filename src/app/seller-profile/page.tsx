@@ -6,6 +6,8 @@ import SellerProfileDetail from "@/app/ui/seller-profile-detail";
 
 import {fetchSellerByEmail} from "@/app/lib/data";
 import { CreateItem } from '@/app/ui/seller-profile/buttons';
+import FeaturedItems from "@/app/ui/featured-items";
+import ResultsTable from "@/app/ui/browse/results";
 
 export const metadata: Metadata = {
   title: 'Seller Profile',
@@ -29,11 +31,10 @@ export default async function SellerProfile() {
           <SellerProfileDetail seller={seller}/>
         </Suspense>
         <div>
-            <h2>Seller Collection</h2>
+            <h2>My Items</h2>
             <Suspense>
-                {/*<SellerCollection />*/}
+                <ResultsTable query={seller.first_name} currentPage={1} />
             </Suspense>
-            <CreateItem />
         </div>
       </main>
   );
