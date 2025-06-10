@@ -8,3 +8,14 @@
   }
   return newObj as T;
 }
+
+export function starRating (rating: number) {
+  const stars = [];
+  for (let i = 0; i < rating; i++) {
+    stars.push("★");
+  }
+  for (let i = rating; i < 5; i++) {
+    stars.push("☆");
+  }
+  return stars.join("");
+}

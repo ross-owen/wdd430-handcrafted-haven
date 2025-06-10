@@ -103,7 +103,7 @@ export async function fetchRatings(id: string) {
     ratings.review,
     ratings.created
     FROM ratings
-    JOIN sellers ON ratings.seller_id = sellers.id
+    LEFT JOIN sellers ON ratings.seller_id = sellers.id
     WHERE ratings.item_id = ${id}
     `;
     return ratings;

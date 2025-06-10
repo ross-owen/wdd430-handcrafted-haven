@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ItemDetails from "@/app/ui/products/item-details";
+import ItemDetails from "@/app/ui/products/product-details";
 import { fetchItemDetails, fetchRatings } from "@/app/lib/data";
 
 export const metadata: Metadata = {

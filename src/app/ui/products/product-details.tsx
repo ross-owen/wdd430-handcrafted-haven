@@ -4,6 +4,7 @@ import Link from "next/link";
 import ReviewForm from "@/app/ui/products/review-form";
 import ReviewHistory from "@/app/ui/products/review-history";
 import { Item, Rating } from "@/app/lib/definitions";
+import styles from "@/app/ui/product.module.css";
 
 type ItemDetailsProps = {
   item: Item;
@@ -13,11 +14,11 @@ type ItemDetailsProps = {
 export default function ItemDetails({ item, ratings }: ItemDetailsProps) {
   return (
     <>
-      <section>
+      <section className={styles.itemDetails}>
         <div>
           <div>
             <Image
-              src="/images/featured-essentric.png"
+              src={`/images/${item.image_name}`}
               width={250}
               height={300}
               alt={item.image_name || "Product Image"}
@@ -35,7 +36,7 @@ export default function ItemDetails({ item, ratings }: ItemDetailsProps) {
       </section>
       <section>
         <div>
-          <ReviewForm ratings={ratings} />
+          <ReviewForm ratings={ratings}  />
           <ReviewHistory ratings={ratings} />
         </div>
       </section>
