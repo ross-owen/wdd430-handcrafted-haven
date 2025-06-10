@@ -5,6 +5,7 @@ import { Seller, Item, Category, Rating } from "./definitions";
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 const ITEMS_PER_PAGE = 10;
+
 export async function fetchFilteredItems(query: string, currentPage: number) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -86,7 +87,7 @@ export async function fetchItemDetails(id: string) {
     items.image_name
     FROM items
     WHERE id = ${id}`;
-    return items[0]
+    return items[0];
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch item details.");
@@ -94,8 +95,8 @@ export async function fetchItemDetails(id: string) {
 }
 
 export async function fetchRatings(id: string) {
-try{
-const ratings = await sql<Rating[]>`SELECT
+  try {
+    const ratings = await sql<Rating[]>`SELECT
     ratings.id,
     ratings.item_id,
     ratings.rating,
@@ -104,13 +105,41 @@ const ratings = await sql<Rating[]>`SELECT
     FROM ratings
     JOIN sellers ON ratings.seller_id = sellers.id
     WHERE ratings.item_id = ${id}
-    `     
-    return ratings
-}
-catch (error) {
+    `;
+    return ratings;
+  } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch ratings.");
+  }
 }
 
+export async function fetchSellers() {
+  try {
+    const sellers = await sql<Seller[]>`SELECT
+      id,
+      first_name,
+      last_name
+      from sellers
+      ORDER BY last_name ASC`;
+
+      
+    return [...sellers];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch sellers.");
+  }
 }
 
+export async function fetchCategories() {
+  try {
+    const categories = await sql<Category[]>`SELECT
+      id,
+      name
+      FROM categories
+      ORDER BY name ASC`;
+    return [...categories];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch sellers.");
+  }
+}
