@@ -12,7 +12,7 @@ export async function fetchFilteredItems(
 	const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
 	try {
-        const items = await sql`
+		return await sql`
         SELECT
             items.id,
             items.seller_id,
@@ -48,8 +48,6 @@ export async function fetchFilteredItems(
         ORDER BY items.created DESC
         LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
         `;
-
-		return items;
 	} catch (error) {
 		console.error('Database Error:', error);
 		throw new Error('Failed to fetch items.');
@@ -86,11 +84,8 @@ export async function fetchSellerByEmail(email: string) {
 export async function fetchCategories() {
   try {
 		return await sql<Category[]>`
-      SELECT
-        id,
-        name
+      SELECT * 
       FROM categories
-      ORDER BY name ASC
     `;
   } catch (err) {
     console.error('Database Error:', err);
