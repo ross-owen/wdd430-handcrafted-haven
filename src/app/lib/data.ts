@@ -79,6 +79,11 @@ export async function fetchItemsPages(query: string) {
 	}
 }
 
+export async function fetchSellerByEmail(email: string) {
+	const data = await sql<Seller[]>`SELECT * FROM sellers WHERE email = ${email}`;
+	return data[0]
+}
+
 export async function fetchCategories() {
   try {
     const categories = await sql<Category[]>`

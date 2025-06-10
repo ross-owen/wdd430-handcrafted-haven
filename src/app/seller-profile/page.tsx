@@ -3,6 +3,8 @@ import {auth} from '@/auth';
 import {redirect} from 'next/navigation';
 import {Suspense} from "react";
 import SellerProfileDetail from "@/app/ui/seller-profile-detail";
+
+import {fetchSellerByEmail} from "@/app/lib/data";
 import type {Seller} from '@/app/lib/definitions';
 import postgres from 'postgres';
 import {snakeToCamel} from '@/app/lib/utils';
@@ -45,7 +47,7 @@ export default async function SellerProfile() {
     redirect('/login');
   }
 
-  const seller = await getSellerByEmail(session.user.email);
+  const seller = await fetchSellerByEmail(session.user.email);
   if (!seller) {
     redirect('/login');
   }

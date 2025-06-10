@@ -27,7 +27,7 @@ export default function SellerProfileDetail({seller}: SellerProfileDetailProps) 
       <div className={styles['seller-wrapper']}>
         <section>
           <h1 className={`${inter.className}`}>
-            {seller.firstName} {seller.lastName}
+            {seller.first_name} {seller.last_name}
           </h1>
           <div className={styles.fieldset}>
             <h4>Location</h4>
@@ -47,7 +47,7 @@ export default function SellerProfileDetail({seller}: SellerProfileDetailProps) 
           </div>
         </section>
         <section>
-          <Image src={`/images/${seller.profilePic}`} alt={`${seller.firstName} ${seller.lastName}`} width={300}
+          <Image src={`/images/${seller.profile_pic}`} alt={`${seller.first_name} ${seller.last_name}`} width={300}
                  height={450}/>
         </section>
       </div>
