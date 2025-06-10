@@ -57,7 +57,7 @@ export async function authenticate(
 export async function createItem(prevState: State, formData: FormData) {
   const validatedFields = CreateItem.safeParse({
     seller_id: formData.get('seller-id'),
-    category_id: formData.get('categoy-id'),
+    category_id: formData.get('category-id'),
     price: formData.get('price'),
     description: formData.get('description'),
     title: formData.get('title'),
