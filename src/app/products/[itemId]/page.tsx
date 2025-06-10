@@ -1,19 +1,18 @@
 import { Metadata } from "next";
-import ItemDetails from "@/app/ui/item-details/item-details";
-import { fetchItemDetails,fetchRatings } from "@/app/lib/data";
+import ItemDetails from "@/app/ui/products/item-details";
+import { fetchItemDetails, fetchRatings } from "@/app/lib/data";
 
 export const metadata: Metadata = {
   title: "Item Details",
 };
 
-
-export default async function itemDetails( {params}: {
-  params: {itemId: string};
-})
-{
-
+export default async function itemDetails({
+  params,
+}: {
+  params: { itemId: string };
+}) {
   let item, ratings;
-   
+
   try {
     item = await fetchItemDetails(params.itemId.toString());
   } catch (error) {
@@ -31,7 +30,7 @@ export default async function itemDetails( {params}: {
   }
   return (
     <main>
-      <ItemDetails item={ item } ratings={ratings ?? []} />
+      <ItemDetails item={item} ratings={ratings ?? []} />
     </main>
   );
 }

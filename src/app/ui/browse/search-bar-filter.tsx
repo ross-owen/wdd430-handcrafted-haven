@@ -4,16 +4,18 @@ import type { Category } from "@/app/lib/definitions";
 export default function SearchBarFilter({
   sellers,
   categories,
+  handleChange,
 }: {
   sellers: Array<{ id: string; first_name: string; last_name: string }>;
   categories: Category[];
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }) {
   return (
     <>
       <div>
         <form className={`${styles["search-bar"]}`}>
           <label htmlFor="search-bar-filter-sellers">
-            <select>
+            <select onChange={handleChange} name="seller">
               <option>All sellers</option>
               {sellers.map((seller) => (
                 <option key={seller.id} value={seller.id}>
@@ -23,9 +25,9 @@ export default function SearchBarFilter({
             </select>
           </label>
           <label htmlFor="search-bar-filter-categories">
-            <select>
+            <select onChange={handleChange} name="category">
               <option>All categories</option>
-               {categories.map((category) => (
+              {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>
@@ -33,7 +35,7 @@ export default function SearchBarFilter({
             </select>
           </label>
           <label htmlFor="search-bar-filter-ratings">
-            <select>
+            <select onChange={handleChange} name="rating" >
               <option value="0">No ratings selected</option>
               <option value="1">1 Star</option>
               <option value="2">2 Stars</option>

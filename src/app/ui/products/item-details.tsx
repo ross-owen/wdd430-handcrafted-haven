@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 // import styles from '@/app/ui/browse.item-details.css';
-import ReviewForm from "@/app/ui/item-details/review-form";
-import ReviewHistory from "@/app/ui/item-details/review-history";
+import ReviewForm from "@/app/ui/products/review-form";
+import ReviewHistory from "@/app/ui/products/review-history";
 import { Item, Rating } from "@/app/lib/definitions";
 
 type ItemDetailsProps = {
