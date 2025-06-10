@@ -1,12 +1,20 @@
 "use client";
 import { useState } from "react";
 
-export default function ReviewForm() {
+import  { Rating } from '@/app/lib/definitions';
+
+type ReviewFormProps = {ratings: Rating[]}
+
+export default function ReviewForm(
+  {ratings}: ReviewFormProps
+) {
   const [rating, setRating] = useState(0);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+
+
 
   return (
     <>

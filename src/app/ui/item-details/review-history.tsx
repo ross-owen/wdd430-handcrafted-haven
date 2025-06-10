@@ -1,6 +1,13 @@
 
+import {Rating} from "@/app/lib/definitions";
 
-export default function ReviewHistory() {
+type ItemHistoryProps = {
+  ratings: Rating[];
+};
+
+export default function ReviewHistory(
+  {ratings}: ItemHistoryProps
+) {
   return (
     <>
       <h2>Review History</h2>

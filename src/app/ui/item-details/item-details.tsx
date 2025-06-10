@@ -1,38 +1,43 @@
 import Image from "next/image";
+import Link from "next/link";
+// import styles from '@/app/ui/browse.item-details.css';
 import ReviewForm from "@/app/ui/item-details/review-form";
 import ReviewHistory from "@/app/ui/item-details/review-history";
+import { Item, Rating } from "@/app/lib/definitions";
 
-export default function ItemDetails() {
+type ItemDetailsProps = {
+  item: Item;
+  ratings: Rating[];
+};
+
+export default function ItemDetails({ item, ratings }: ItemDetailsProps) {
   return (
     <>
-    <section>
-      <div>
+      <section>
         <div>
-          <Image
-            src="/images/featured-essentric.png"
-            alt="Featured item 2: Eccentric Clay Sculpture"
-            width={250}
-            height={300}
-          />
-        </div>
-        <div>
-          <h1>Eccentric Clay Sculpture</h1>
-          <p>
-            This unique clay sculpture is a bizzare addition of eccentricity to
-            any space. Handcrafted for trinket-eers, it features intricate
-            details and a soft glaze.
-          </p>
           <div>
-            <span>Price: </span>$10.99
+            <Image
+              src="/images/featured-essentric.png"
+              width={250}
+              height={300}
+              alt={item.image_name || "Product Image"}
+            />
+          </div>
+          <div>
+            <h1>{item.title}</h1>
+            <p>{item.description}</p>
+            <div>
+              <span>Price: </span>
+              {item.price}
+            </div>
           </div>
         </div>
-      </div>
       </section>
       <section>
-   <div>
-<ReviewForm />
-<ReviewHistory />
-    </div>     
+        <div>
+          <ReviewForm ratings={ratings} />
+          <ReviewHistory ratings={ratings} />
+        </div>
       </section>
     </>
   );
