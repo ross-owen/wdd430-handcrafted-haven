@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import postgres from 'postgres';
+import Form from '../ui/seller-profile/create-item-form';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -87,4 +88,10 @@ export async function createItem(prevState: State, formData: FormData) {
 
   revalidatePath('/seller-profile');
   redirect('/seller-profile');
+}
+
+const CreateSeller = FormSchema.omit({id: true})
+
+export async function createSeller(prevState: State, formData: FormData) {
+    
 }
