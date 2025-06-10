@@ -143,3 +143,25 @@ export async function fetchCategories() {
     throw new Error("Failed to fetch sellers.");
   }
 }
+
+export async function fetchSellerByEmail(email: string) {
+	const data = await sql<Seller[]>`SELECT * FROM sellers WHERE email = ${email}`;
+	return data[0]
+}
+
+export async function fetchCategories() {
+  try {
+    const categories = await sql<Category[]>`
+      SELECT
+        id,
+        name
+      FROM categories
+      ORDER BY name ASC
+    `;
+
+    return categories;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all categories.');
+  }
+}
