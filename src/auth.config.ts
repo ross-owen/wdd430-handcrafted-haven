@@ -5,19 +5,25 @@ export const authConfig = {
         signIn: '/login',
     },
     callbacks: {
-        authorized({auth, request: {nextUrl}}) {
+        authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isOnProfile = nextUrl.pathname.startsWith('/seller-profile');
             const isLoggingOut = nextUrl.pathname === '/logout';
             const isOnLogin = nextUrl.pathname === '/login';
+            const isOnSignup = nextUrl.pathname === '/sign-up';
+            const isOnProfile = nextUrl.pathname.startsWith('/seller-profile');
 
             if (isLoggingOut) {
                 return true;
-            } else if (isOnProfile) {
-                return isLoggedIn;
-            } else if (isOnLogin && isLoggedIn) {
+            }
+
+            if (isOnProfile && !isLoggedIn) {
+                return false;
+            }
+
+            if ((isOnLogin || isOnSignup) && isLoggedIn) {
                 return Response.redirect(new URL('/seller-profile', nextUrl));
             }
+
             return true;
         },
     },

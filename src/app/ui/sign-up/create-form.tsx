@@ -1,32 +1,37 @@
 'use client';
 
-import { Seller } from '@/app/lib/definitions';
-import Link from 'next/link';
+import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { Button } from '@/app/ui/button';
+import { useSearchParams } from 'next/navigation';
+
 import { createSeller, SellerState } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
 export default function Form() {
+
 	const initialState: SellerState = { message: null, errors: {} };
+	const searchParams = useSearchParams();
+	
+  	const callbackUrl = searchParams.get('callbackUrl') || '/seller-profile';
 	const [state, formAction] = useActionState(createSeller, initialState);
+
 	return (
 		<form action={formAction}>
 			<div>
 				<label htmlFor="first_name">First Name</label>
-				<input type="text" id="first_name" name="first_name" required></input>
+				<input type="text" id="first_name" name="first_name" required />
+
 				<label htmlFor="last_name">Last Name</label>
-				<input type="text" id="last_name" name="last_name" required></input>
+				<input type="text" id="last_name" name="last_name" required />
+
 				<label htmlFor="description">Biography</label>
-				<input
-					type="textarea"
-					id="description"
-					name="description"
-					required
-				></input>
+				<input type="textarea" id="description" name="description" required />
+
 				<label htmlFor="location">Location</label>
-				<input type="text" id="location" name="location" required></input>
+				<input type="text" id="location" name="location" required />
 			</div>
+
 			<div>
 				<label htmlFor="profile_pic">Profile Picture</label>
 				<input
@@ -41,16 +46,22 @@ export default function Form() {
 							e.target.value = '';
 						}
 					}}
-				></input>
+				/>
 			</div>
+
 			<div>
 				<label htmlFor="email">Email Address</label>
-				<input type="email" id="email" name="email" required></input>
+				<input type="email" id="email" name="email" required />
+
 				<label htmlFor="password">Password</label>
-				<input type="password" id="password" name="password" required></input>
+				<input type="password" id="password" name="password" required />
 			</div>
+			<input type="hidden" name="redirectTo" value={callbackUrl} />
 			<div>
-				<Button type="submit">Register Account</Button>
+				<button type="submit">Register Account</button>
+				<div>
+					{state?.message && <p className="error-message">{state.message}</p>}
+				</div>
 			</div>
 		</form>
 	);

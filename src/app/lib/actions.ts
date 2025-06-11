@@ -98,11 +98,12 @@ const CreateSellerFormSchema = z.object({
 	last_name: z.string(),
 	description: z.string(),
 	location: z.string(),
-	email: z.string(),
-	password: z.string(),
+	email: z.string().email(),
+	password: z.string().min(6),
 	created: z.date(),
 	modified: z.date(),
 	profile_pic: z.string(),
+	redirectTo: z.string()
 });
 
 const CreateSeller = CreateSellerFormSchema.omit({});
@@ -123,7 +124,7 @@ export type SellerState = {
 export async function createSeller(
 	prevState: SellerState,
 	formData: FormData
-): Promise<SellerState> {
+) {
 	const validatedFields = CreateSeller.safeParse({
 		first_name: formData.get('first_name'),
 		last_name: formData.get('last_name'),
@@ -133,7 +134,8 @@ export async function createSeller(
 		password: formData.get('password'),
 		created: new Date(),
 		modified: new Date(),
-		profile_pic: '', // we'll add the filename after saving
+		profile_pic: '', // to be added after saving the file
+		redirectTo: formData.get('redirectTo')
 	});
 
 	if (!validatedFields.success) {
@@ -163,21 +165,22 @@ export async function createSeller(
 	const fileName = `${Date.now()}_${profilePicFile.name}`;
 	const filePath = path.join(process.cwd(), 'public/images', fileName);
 
-	try {
-		await writeFile(filePath, buffer);
+	await writeFile(filePath, buffer);
 
-		const { first_name, last_name, description, location, email, password } =
-			validatedFields.data;
-		const created = new Date().toISOString().split('T')[0];
-		const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
-		await sql`
-			INSERT INTO sellers (first_name, last_name, description, location, email, password, created, modified, profile_pic)
-			VALUES (${first_name}, ${last_name}, ${description}, ${location}, ${email}, ${hashedPassword}, ${created}, ${created}, ${fileName})
-		`;
+	const { first_name, last_name, description, location, email, password } =
+		validatedFields.data;
+	const created = new Date().toISOString().split('T')[0];
+	const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+	await sql`
+		INSERT INTO sellers (first_name, last_name, description, location, email, password, created, modified, profile_pic)
+		VALUES (${first_name}, ${last_name}, ${description}, ${location}, ${email}, ${hashedPassword}, ${created}, ${created}, ${fileName})
+	`;
+	const redirectTo = validatedFields.data.redirectTo as string;
 
-		return { message: 'Account created successfully!' };
-	} catch (error) {
-		console.error(error);
-		return { message: 'Failed to create account. Please try again.' };
-	}
+	const loginForm = new FormData();
+	loginForm.set('email', email);
+	loginForm.set('password', password);
+	loginForm.set('redirectTo', redirectTo)
+	await signIn('credentials', loginForm, { redirectTo });
+	return {message: null}
 }
