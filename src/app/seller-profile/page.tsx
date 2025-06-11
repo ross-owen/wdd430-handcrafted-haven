@@ -12,29 +12,29 @@ import { CreateItem } from '@/app/ui/seller-profile/buttons';
 
 const sql = postgres(process.env.POSTGRES_URL!, {ssl: 'require'});
 
-async function getSellerByEmail(email: string): Promise<Seller | undefined> {
-  try {
-    const rawRows = await sql<Array<Record<string, string>>>`
-        SELECT id,
-               first_name,
-               last_name,
-               description,
-               location,
-               email,
-               created,
-               modified,
-               profile_pic
-        FROM sellers
-        WHERE email = ${email}
-    `;
-    if (rawRows.length > 0) {
-      return snakeToCamel<Seller>(rawRows[0]);
-    }
-  } catch (error) {
-    console.error('Failed to fetch seller details by email:', error);
-    return undefined;
-  }
-}
+// async function getSellerByEmail(email: string): Promise<Seller | undefined> {
+//   try {
+//     const rawRows = await sql<Array<Record<string, string>>>`
+//         SELECT id,
+//                first_name,
+//                last_name,
+//                description,
+//                location,
+//                email,
+//                created,
+//                modified,
+//                profile_pic
+//         FROM sellers
+//         WHERE email = ${email}
+//     `;
+//     if (rawRows.length > 0) {
+//       return snakeToCamel<Seller>(rawRows[0]);
+//     }
+//   } catch (error) {
+//     console.error('Failed to fetch seller details by email:', error);
+//     return undefined;
+//   }
+// }
 
 export const metadata: Metadata = {
   title: 'Seller Profile',
