@@ -1,19 +1,39 @@
-import { fetchItemsPages } from '@/app/lib/data';
-import ResultsTable from '@/app/ui/browse/results';
+import { fetchItemsPages, fetchSellers, fetchCategories } from "@/app/lib/data";
+import ResultsTable from "@/app/ui/browse/results";
+import SearchBar from "@/app/ui/browse/search-bar";
 
 export default async function Page(props: {
-	searchParams?: Promise<{
-		query?: string;
-		page?: string;
-	}>;
+  searchParams?: Promise<{
+    query?: string;
+    page?: string;
+  }>;
 }) {
-	const searchParams = await props.searchParams;
-	const query = searchParams?.query || '';
-	const currentPage = Number(searchParams?.page) || 1;
-	const totalPages = await fetchItemsPages(query);
-	return (
-		<main>
-			<ResultsTable query={query} currentPage={currentPage} />
-		</main>
-	);
+  const searchParams = await props.searchParams;
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const [totalPages, rawSellers, categories] = await Promise.all([
+    fetchItemsPages(query),
+    fetchSellers(),
+    fetchCategories(),
+  ]);
+
+  const sellers = rawSellers.map(({ id, first_name, last_name }) => ({
+    id,
+    first_name,
+    last_name,
+  }));
+
+
+  console.log("Search Parameters:", searchParams);
+  console.log("Query:", query);
+  console.log("Current Page:", currentPage);
+  console.log("Total Pages:", totalPages);
+
+  return (
+    <main>
+      <SearchBar sellers={sellers} categories={categories} />
+      <ResultsTable query={query} currentPage={currentPage} />
+    </main>
+  );
 }
