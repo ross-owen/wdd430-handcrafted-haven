@@ -1,3 +1,8 @@
+.seller-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .seller-wrapper h1 {
     font-size: 2rem;
 }

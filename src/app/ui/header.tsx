@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { usePathname } from "next/navigation";
 
 
-export default function Header() {
+export default function Header({isLoggedIn} : {isLoggedIn: boolean}) {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathname = usePathname();
     return (
@@ -32,7 +32,12 @@ export default function Header() {
 							<Link href="/search" className={pathname === "/search" ? "active" : ""}>Search</Link>
 						</li> */}
 						<li>
-							<Link href="/login" className={pathname === "/login" ? "active" : ""}>Seller Login</Link>
+							{isLoggedIn ? (
+									<Link href="/logout" className={pathname === "/logout" ? "active" : ""}>Logout</Link>
+							) : (
+									<Link href="/login" className={pathname === "/login" ? "active" : ""}>Seller Login</Link>
+							)}
+
 						</li>
 					</ul>
 				</div>

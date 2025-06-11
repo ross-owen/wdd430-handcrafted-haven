@@ -1,10 +1,6 @@
 import postgres from 'postgres';
 
-import {
-    Seller,
-    Item,
-    Category
-} from './definitions';
+import {Category, Seller} from './definitions';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -16,20 +12,21 @@ export async function fetchFilteredItems(
 	const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
 	try {
-        const items = await sql`
+		return await sql`
         SELECT
             items.id,
             items.seller_id,
-            sellers.first_name,
-            sellers.last_name,
             items.category_id,
-            categories.name AS category_name,
             items.price,
             items.description,
             items.title,
             items.created,
             items.modified,
             items.image_name,
+            categories.name,
+            categories.id,
+            sellers.first_name,
+            sellers.last_name,
             (
             SELECT COALESCE(AVG(r.rating), 0)
             FROM ratings r
@@ -42,14 +39,15 @@ export async function fetchFilteredItems(
             sellers.first_name ILIKE ${`%${query}%`} OR
             sellers.last_name ILIKE ${`%${query}%`} OR
             categories.name ILIKE ${`%${query}%`} OR
+            categories.id::text ILIKE ${`%${query}%`} OR
             items.title ILIKE ${`%${query}%`} OR
             items.description ILIKE ${`%${query}%`} OR
-            items.price::text ILIKE ${`%${query}%`}
+            items.price::text ILIKE ${`%${query}%`} OR
+            items.id::text ILIKE ${`%${query}%`} OR
+            items.seller_id::text ILIKE ${`%${query}%`}
         ORDER BY items.created DESC
         LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
         `;
-
-		return items;
 	} catch (error) {
 		console.error('Database Error:', error);
 		throw new Error('Failed to fetch items.');
@@ -71,8 +69,7 @@ export async function fetchItemsPages(query: string) {
         items.price::text ILIKE ${`%${query}%`}
   `;
 
-		const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
-		return totalPages;
+		return Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
 	} catch (error) {
 		console.error('Database Error:', error);
 		throw new Error('Failed to fetch total number of items.');
@@ -86,15 +83,10 @@ export async function fetchSellerByEmail(email: string) {
 
 export async function fetchCategories() {
   try {
-    const categories = await sql<Category[]>`
-      SELECT
-        id,
-        name
+		return await sql<Category[]>`
+      SELECT * 
       FROM categories
-      ORDER BY name ASC
     `;
-
-    return categories;
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all categories.');
