@@ -1,4 +1,4 @@
-import Form from '@/app/ui/seller-profile/create-item-form';
+import CreateItem from '@/app/ui/seller-profile/create-item-form';
 import { fetchCategories } from '@/app/lib/data';
 import { Metadata } from 'next';
  
@@ -21,7 +21,7 @@ export default async function Page() {
           },
         ]}
       />*/}
-      <Form categories={categories}/>
+      <CreateItem categories={categories}/>
     </main>
   );
 }
