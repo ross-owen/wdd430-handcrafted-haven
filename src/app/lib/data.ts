@@ -149,19 +149,3 @@ export async function fetchSellerByEmail(email: string) {
 	return data[0]
 }
 
-export async function fetchCategories() {
-  try {
-    const categories = await sql<Category[]>`
-      SELECT
-        id,
-        name
-      FROM categories
-      ORDER BY name ASC
-    `;
-
-    return categories;
-  } catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to fetch all categories.');
-  }
-}
