@@ -5,10 +5,13 @@ import {Suspense} from "react";
 import SellerProfileDetail from "@/app/ui/seller-profile-detail";
 
 import {fetchSellerByEmail} from "@/app/lib/data";
+
 import type {Seller} from '@/app/lib/definitions';
 import postgres from 'postgres';
 import {snakeToCamel} from '@/app/lib/utils';
 import { CreateItem } from '@/app/ui/seller-profile/buttons';
+import ResultsTable from "@/app/ui/browse/results";
+import Link from "next/link";
 
 const sql = postgres(process.env.POSTGRES_URL!, {ssl: 'require'});
 
@@ -58,11 +61,13 @@ export default async function SellerProfile() {
           <SellerProfileDetail seller={seller}/>
         </Suspense>
         <div>
-            <h2>Seller Collection</h2>
-            <Suspense>
-                {/*<SellerCollection />*/}
-            </Suspense>
-            <CreateItem />
+          <Link className={'a-button'} href="/item/create">Add a new item</Link>
+        </div>
+        <div>
+          <h2>My Items</h2>
+          <Suspense>
+            <ResultsTable query={seller.id} currentPage={1}/>
+          </Suspense>
         </div>
       </main>
   );

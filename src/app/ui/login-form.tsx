@@ -1,13 +1,28 @@
 'use client';
 
 import {inter} from '@/app/ui/fonts';
-import {useActionState} from 'react';
+import {useActionState, useEffect, useRef} from 'react';
 import {authenticate} from '@/app/lib/actions';
 import {useSearchParams} from 'next/navigation';
 import styles from './login.module.css';
 import Logo from "@/app/ui/nav/logo";
+import {useRouter} from 'next/navigation';
+
 
 export default function LoginForm() {
+  // this bit of code forces a refresh of the routes
+  // to make the header show Login vs Logout
+  const router = useRouter();
+  const hasRefreshed = useRef(false);
+  useEffect(() => {
+    if (!hasRefreshed.current) {
+      router.refresh();
+      hasRefreshed.current = true;
+      console.log("LoginPage: router.refresh() called once on initial mount.");
+    }
+  }, [router]);
+
+  // now onto the regular stuff
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/seller-profile';
   const [errorMessage, formAction] = useActionState(

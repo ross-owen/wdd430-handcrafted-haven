@@ -1,6 +1,8 @@
 import postgres from "postgres";
 
+
 import { Seller, Item, Category, Rating } from "./definitions";
+
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -14,16 +16,17 @@ export async function fetchFilteredItems(query: string, currentPage: number) {
         SELECT
             items.id,
             items.seller_id,
-            sellers.first_name,
-            sellers.last_name,
             items.category_id,
-            categories.name AS category_name,
             items.price,
             items.description,
             items.title,
             items.created,
             items.modified,
             items.image_name,
+            categories.name,
+            categories.id,
+            sellers.first_name,
+            sellers.last_name,
             (
             SELECT COALESCE(AVG(r.rating), 0)
             FROM ratings r
@@ -36,9 +39,12 @@ export async function fetchFilteredItems(query: string, currentPage: number) {
             sellers.first_name ILIKE ${`%${query}%`} OR
             sellers.last_name ILIKE ${`%${query}%`} OR
             categories.name ILIKE ${`%${query}%`} OR
+            categories.id::text ILIKE ${`%${query}%`} OR
             items.title ILIKE ${`%${query}%`} OR
             items.description ILIKE ${`%${query}%`} OR
-            items.price::text ILIKE ${`%${query}%`}
+            items.price::text ILIKE ${`%${query}%`} OR
+            items.id::text ILIKE ${`%${query}%`} OR
+            items.seller_id::text ILIKE ${`%${query}%`}
         ORDER BY items.created DESC
         LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
         `;
@@ -48,6 +54,7 @@ export async function fetchFilteredItems(query: string, currentPage: number) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch items.");
   }
+
 }
 
 export async function fetchItemsPages(query: string) {
@@ -71,6 +78,7 @@ export async function fetchItemsPages(query: string) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch total number of items.");
   }
+
 }
 
 export async function fetchItemDetails(id: string) {
@@ -96,6 +104,7 @@ export async function fetchItemDetails(id: string) {
 
 export async function fetchRatings(id: string) {
   try {
+
     const ratings = await sql<Rating[]>`SELECT
     ratings.id,
     ratings.item_id,
@@ -141,6 +150,7 @@ export async function fetchCategories() {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch sellers.");
+
   }
 }
 

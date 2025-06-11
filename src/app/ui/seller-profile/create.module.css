@@ -15,12 +15,6 @@
     background-color: rgb(36, 36, 36);
 }
 
-@media screen and (min-width: 600px) {
-    .create-item-button {
-        margin-left: 0;
-    }
-}
-
 /* Create item form styling */
 .create-item-form input:read-only {
     background-color:lightgray;
@@ -55,4 +49,10 @@
 .create-item-form-buttons a:hover {
     background-color: white;
     color: black;
+}
+
+@media screen and (min-width: 600px) {
+    .create-item-button {
+        margin-left: 0;
+    }
 }

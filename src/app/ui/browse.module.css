@@ -60,15 +60,16 @@
   margin: .25rem;
 }
 
-@media screen and (min-width: 840) {
+@media screen and (min-width: 840px) {
   .results-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media screen and (min-width: 1250) {
+@media screen and (min-width: 1250px) {
   .results-container {
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
