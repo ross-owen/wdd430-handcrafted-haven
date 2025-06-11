@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-
 import { useSearchParams } from 'next/navigation';
 
 import { createSeller, SellerState } from '@/app/lib/actions';
 import { useActionState } from 'react';
+import styles from './sign-up-form.module.css';
+
 
 export default function Form() {
 
@@ -17,8 +16,8 @@ export default function Form() {
 	const [state, formAction] = useActionState(createSeller, initialState);
 
 	return (
-		<form action={formAction}>
-			<div>
+		<form className={styles['sign-up-form']} action={formAction}>
+			<div className={styles['personal-details']}>
 				<label htmlFor="first_name">First Name</label>
 				<input type="text" id="first_name" name="first_name" required />
 
@@ -32,7 +31,7 @@ export default function Form() {
 				<input type="text" id="location" name="location" required />
 			</div>
 
-			<div>
+			<div className={styles['profile-pic-upload']}>
 				<label htmlFor="profile_pic">Profile Picture</label>
 				<input
 					type="file"
@@ -49,7 +48,7 @@ export default function Form() {
 				/>
 			</div>
 
-			<div>
+			<div className={styles['personal-details']}>
 				<label htmlFor="email">Email Address</label>
 				<input type="email" id="email" name="email" required />
 

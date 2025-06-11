@@ -1,4 +1,6 @@
-import Form from '@/app/ui/sign-up/create-form';
+import Form from '@/app/ui/sign-up/sign-up-form';
+import styles from '@/app/ui/sign-up/sign-up-form.module.css';
+
 
 import { Metadata } from 'next';
 
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Page() {
 
 	return (
-		<main>
+		<main className={styles['main']}>
 			<Form />
 		</main>
 	);
