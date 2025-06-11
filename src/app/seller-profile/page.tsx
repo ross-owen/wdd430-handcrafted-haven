@@ -5,9 +5,8 @@ import {Suspense} from "react";
 import SellerProfileDetail from "@/app/ui/seller-profile-detail";
 
 import {fetchSellerByEmail} from "@/app/lib/data";
-import { CreateItem } from '@/app/ui/seller-profile/buttons';
-import FeaturedItems from "@/app/ui/featured-items";
 import ResultsTable from "@/app/ui/browse/results";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: 'Seller Profile',
@@ -31,10 +30,13 @@ export default async function SellerProfile() {
           <SellerProfileDetail seller={seller}/>
         </Suspense>
         <div>
-            <h2>My Items</h2>
-            <Suspense>
-                <ResultsTable query={seller.id} currentPage={1} />
-            </Suspense>
+          <Link className={'a-button'} href="/item/create">Add a new item</Link>
+        </div>
+        <div>
+          <h2>My Items</h2>
+          <Suspense>
+            <ResultsTable query={seller.id} currentPage={1}/>
+          </Suspense>
         </div>
       </main>
   );

@@ -1,13 +1,13 @@
 'use client'
 
-import { Category } from '@/app/lib/definitions';
+import {Category, Seller} from '@/app/lib/definitions';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { createItem, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import styles from './create.module.css';
 
-export default function CreateItem({ categories }: { categories: Category[] }) {
+export default function CreateItemForm({ categories, seller }: { categories: Category[], seller: Seller }) {
     
   const initialState: State = { message: null, errors: {} };
   const [state, formAction] = useActionState(createItem, initialState);
@@ -15,9 +15,10 @@ export default function CreateItem({ categories }: { categories: Category[] }) {
   return (
     <form action={formAction} className={styles['create-item-form']}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-
+        <h2>Create Item For {seller.first_name} {seller.last_name}</h2>
         {/* Seller id */}
         <div className="mb-4">
+          {/*this should be hidden*/}
           <label htmlFor="seller-id" className="mb-2 block text-sm font-medium">
             Your seller id
           </label>
@@ -28,7 +29,7 @@ export default function CreateItem({ categories }: { categories: Category[] }) {
                 name="seller-id"
                 type="text"
                 step="0.01"
-                value="123ABC456DEF"
+                value={seller.id}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby='seller-id-error'
                 readOnly
