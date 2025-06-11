@@ -7,7 +7,7 @@ import { createItem, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import styles from './create.module.css';
 
-export default function Form({ categories }: { categories: Category[] }) {
+export default function CreateItem({ categories }: { categories: Category[] }) {
     
   const initialState: State = { message: null, errors: {} };
   const [state, formAction] = useActionState(createItem, initialState);
