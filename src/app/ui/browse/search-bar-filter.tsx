@@ -16,7 +16,7 @@ export default function SearchBarFilter({
         <form className={`${styles["search-bar"]}`}>
           <label htmlFor="search-bar-filter-sellers">
             <select onChange={handleChange} name="seller">
-              <option>All sellers</option>
+              <option value={''}>All sellers</option>
               {sellers.map((seller) => (
                 <option key={seller.id} value={seller.id}>
                   {seller.first_name} {seller.last_name}
@@ -26,7 +26,7 @@ export default function SearchBarFilter({
           </label>
           <label htmlFor="search-bar-filter-categories">
             <select onChange={handleChange} name="category">
-              <option>All categories</option>
+              <option value={''}>All categories</option>
               {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.name}
@@ -36,7 +36,7 @@ export default function SearchBarFilter({
           </label>
           <label htmlFor="search-bar-filter-ratings">
             <select onChange={handleChange} name="rating" >
-              <option value="0">No ratings selected</option>
+              <option value="">No ratings selected</option>
               <option value="1">1 Star</option>
               <option value="2">2 Stars</option>
               <option value="3">3 Stars</option>

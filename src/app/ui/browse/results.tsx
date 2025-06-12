@@ -3,19 +3,26 @@ import Link from 'next/link';
 import styles from '@/app/ui/browse.module.css';
 import { fetchFilteredItems } from '@/app/lib/data';
 import StarRating from './star';
+import { UUID } from 'crypto';
 
 export default async function ResultsTable({
 	query,
+	seller_id,
+	category_id,
+	rating,
 	currentPage,
 }: {
 	query: string;
+	seller_id: string,
+	category_id: string,
+	rating: string,
 	currentPage: number;
 }) {
 
 	let items = [];
 
 	try {
-    items = await fetchFilteredItems(query, currentPage);
+    items = await fetchFilteredItems(query, seller_id, category_id, rating, currentPage);
   } catch (error) {
     console.error("Error fetching filtered items:", error);
     return <p>Failed to load results.</p>;

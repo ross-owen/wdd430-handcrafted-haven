@@ -51,7 +51,7 @@ async function getAllSellers() {
 
 export async function GET() {
 	try {
-		return Response.json(await getSellerItems());
+		return Response.json(await getAllItems());
 	} catch (error) {
 		return Response.json({ error }, { status: 500 });
 	}
