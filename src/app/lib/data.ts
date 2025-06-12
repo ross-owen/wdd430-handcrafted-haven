@@ -1,6 +1,5 @@
 import postgres from "postgres";
 
-
 import { Seller, Item, Category, Rating } from "./definitions";
 
 
@@ -8,54 +7,95 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 const ITEMS_PER_PAGE = 10;
 
-export async function fetchFilteredItems(query: string, currentPage: number) {
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+export async function fetchFilteredItems(
+	query: string,
+	seller_id: string,
+	category_id: string,
+	rating: string,
+	currentPage: number
+) {
+	const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  try {
-    const items = await sql`
-        SELECT
-            items.id,
-            items.seller_id,
-            items.category_id,
-            items.price,
-            items.description,
-            items.title,
-            items.created,
-            items.modified,
-            items.image_name,
-            categories.name,
-            categories.id,
-            sellers.first_name,
-            sellers.last_name,
-            (
-            SELECT COALESCE(AVG(r.rating), 0)
-            FROM ratings r
-            WHERE r.item_id = items.id
-            ) AS average_rating
-        FROM items
-        JOIN sellers ON items.seller_id = sellers.id
-        JOIN categories ON items.category_id = categories.id
-        WHERE
-            sellers.first_name ILIKE ${`%${query}%`} OR
-            sellers.last_name ILIKE ${`%${query}%`} OR
-            categories.name ILIKE ${`%${query}%`} OR
-            categories.id::text ILIKE ${`%${query}%`} OR
-            items.title ILIKE ${`%${query}%`} OR
-            items.description ILIKE ${`%${query}%`} OR
-            items.price::text ILIKE ${`%${query}%`} OR
-            items.id::text ILIKE ${`%${query}%`} OR
-            items.seller_id::text ILIKE ${`%${query}%`}
-        ORDER BY items.created DESC
-        LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
-        `;
+	try {
+		const filters = [];
 
-    return items;
-  } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch items.");
-  }
+		if (query) {
+			filters.push(sql`
+        (
+          sellers.first_name ILIKE ${`%${query}%`} OR
+          sellers.last_name ILIKE ${`%${query}%`} OR
+          categories.name ILIKE ${`%${query}%`} OR
+          items.title ILIKE ${`%${query}%`} OR
+          items.description ILIKE ${`%${query}%`} OR
+          items.price::text ILIKE ${`%${query}%`} OR
+          items.id::text ILIKE ${`%${query}%`}
+        )
+      `);
+		}
 
+		if (seller_id) {
+			filters.push(sql`items.seller_id = ${seller_id}`);
+		}
+
+		if (category_id) {
+			filters.push(sql`items.category_id = ${category_id}`);
+		}
+
+		if (rating) {
+			filters.push(sql`
+        (
+          SELECT COALESCE(ROUND(AVG(r.rating)), 0)
+          FROM ratings r
+          WHERE r.item_id = items.id
+        ) = ${rating}
+      `);
+		}
+
+		let whereClause = sql``;
+		if (filters.length > 0) {
+			const first = filters[0];
+			const rest = filters.slice(1);
+			whereClause = rest.reduce(
+				(acc, filter) => sql`${acc} AND ${filter}`,
+				sql`WHERE ${first}`
+			);
+		}
+
+		const items = await sql`
+      SELECT
+        items.id,
+        items.seller_id,
+        items.category_id,
+        items.price,
+        items.description,
+        items.title,
+        items.created,
+        items.modified,
+        items.image_name,
+        categories.name,
+        sellers.first_name,
+        sellers.last_name,
+        (
+          SELECT COALESCE(AVG(r.rating), 0)
+          FROM ratings r
+          WHERE r.item_id = items.id
+        ) AS average_rating
+      FROM items
+      JOIN sellers ON items.seller_id = sellers.id
+      JOIN categories ON items.category_id = categories.id
+      ${whereClause}
+      ORDER BY items.created DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset};
+    `;
+
+		return items;
+	} catch (error) {
+		console.error('Database Error:', error);
+		throw new Error('Failed to fetch items.');
+	}
 }
+
+
 
 export async function fetchItemsPages(query: string) {
   try {

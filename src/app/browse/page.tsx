@@ -1,16 +1,24 @@
 import { fetchItemsPages, fetchSellers, fetchCategories } from "@/app/lib/data";
 import ResultsTable from "@/app/ui/browse/results";
 import SearchBar from "@/app/ui/browse/search-bar";
+import { UUID } from 'crypto';
+
 
 export default async function Page(props: {
   searchParams?: Promise<{
     query?: string;
     page?: string;
+    seller?: string;
+    category?: string;
+    rating?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
+  const seller_id = searchParams?.seller || '';
+	const category_id = searchParams?.category || '';
+	const rating = searchParams?.rating || '';
 
   const [totalPages, rawSellers, categories] = await Promise.all([
     fetchItemsPages(query),
@@ -33,7 +41,7 @@ export default async function Page(props: {
   return (
     <main>
       <SearchBar sellers={sellers} categories={categories} />
-      <ResultsTable query={query} currentPage={currentPage} />
+      <ResultsTable query={query} seller_id={seller_id} category_id={category_id} rating={rating} currentPage={currentPage} />
     </main>
   );
 }
