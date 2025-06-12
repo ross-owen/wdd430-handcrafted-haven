@@ -66,7 +66,7 @@ export default async function SellerProfile() {
         <div>
           <h2>My Items</h2>
           <Suspense>
-            <ResultsTable query={seller.id} currentPage={1}/>
+            <ResultsTable query={''} seller_id={seller.id} category_id={''} rating={''} currentPage={1}/>
           </Suspense>
         </div>
       </main>
