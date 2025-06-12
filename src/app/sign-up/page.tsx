@@ -4,7 +4,7 @@ import styles from '@/app/ui/sign-up/sign-up-form.module.css';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'Create Invoice',
+	title: 'Seller Sign Up',
 };
 
 export default async function Page() {
