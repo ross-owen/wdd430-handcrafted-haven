@@ -1,0 +1,25 @@
+.main {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 500px;
+}
+
+.personal-details, .profile-pic-upload {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.personal-details > input {
+    margin-bottom: .5rem;
+    max-width: 500px;
+}
