@@ -6,13 +6,11 @@ import { createSeller, SellerState } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import styles from './sign-up-form.module.css';
 
-
-export default function Form() {
-
+export default function SignUpForm() {
 	const initialState: SellerState = { message: null, errors: {} };
 	const searchParams = useSearchParams();
-	
-  	const callbackUrl = searchParams.get('callbackUrl') || '/seller-profile';
+
+	const callbackUrl = searchParams.get('callbackUrl') || '/seller-profile';
 	const [state, formAction] = useActionState(createSeller, initialState);
 
 	return (
