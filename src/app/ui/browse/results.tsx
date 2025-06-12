@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { fetchFilteredItems } from '@/app/lib/data';
-import styles from '@/app/ui/browse.module.css';
-import StarRating from './star';
 import Link from 'next/link';
+import styles from '@/app/ui/browse.module.css';
+import { fetchFilteredItems } from '@/app/lib/data';
+import StarRating from './star';
 
 export default async function ResultsTable({
 	query,
@@ -11,7 +11,15 @@ export default async function ResultsTable({
 	query: string;
 	currentPage: number;
 }) {
-	const items = await fetchFilteredItems(query, currentPage);
+
+	let items = [];
+
+	try {
+    items = await fetchFilteredItems(query, currentPage);
+  } catch (error) {
+    console.error("Error fetching filtered items:", error);
+    return <p>Failed to load results.</p>;
+  }
 
 	return (
 		<div className={`${styles['results-container']}`}>

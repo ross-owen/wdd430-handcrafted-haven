@@ -1,18 +1,18 @@
-import postgres from 'postgres';
+import postgres from "postgres";
 
-import {Category, Seller} from './definitions';
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+import { Seller, Item, Category, Rating } from "./definitions";
+
+
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 const ITEMS_PER_PAGE = 10;
-export async function fetchFilteredItems(
-	query: string,
-	currentPage: number
-) {
-	const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-	try {
-		return await sql`
+export async function fetchFilteredItems(query: string, currentPage: number) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const items = await sql`
         SELECT
             items.id,
             items.seller_id,
@@ -48,15 +48,18 @@ export async function fetchFilteredItems(
         ORDER BY items.created DESC
         LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
         `;
-	} catch (error) {
-		console.error('Database Error:', error);
-		throw new Error('Failed to fetch items.');
-	}
+
+    return items;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch items.");
+  }
+
 }
 
 export async function fetchItemsPages(query: string) {
-	try {
-		const data = await sql`SELECT COUNT(*)
+  try {
+    const data = await sql`SELECT COUNT(*)
     FROM items
     JOIN sellers ON items.seller_id = sellers.id
     JOIN categories ON items.category_id = categories.id
@@ -69,11 +72,86 @@ export async function fetchItemsPages(query: string) {
         items.price::text ILIKE ${`%${query}%`}
   `;
 
-		return Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
-	} catch (error) {
-		console.error('Database Error:', error);
-		throw new Error('Failed to fetch total number of items.');
-	}
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of items.");
+  }
+
+}
+
+export async function fetchItemDetails(id: string) {
+  try {
+    const items = await sql<Item[]>`SELECT
+    items.id,
+    items.seller_id,
+    items.category_id,
+    items.price,
+    items.description,
+    items.title,
+    items.created,
+    items.modified,
+    items.image_name
+    FROM items
+    WHERE id = ${id}`;
+    return items[0];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch item details.");
+  }
+}
+
+export async function fetchRatings(id: string) {
+  try {
+
+    const ratings = await sql<Rating[]>`SELECT
+    ratings.id,
+    ratings.item_id,
+    ratings.rating,
+    ratings.review,
+    ratings.created
+    FROM ratings
+    LEFT JOIN sellers ON ratings.seller_id = sellers.id
+    WHERE ratings.item_id = ${id}
+    `;
+    return ratings;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch ratings.");
+  }
+}
+
+export async function fetchSellers() {
+  try {
+    const sellers = await sql<Seller[]>`SELECT
+      id,
+      first_name,
+      last_name
+      from sellers
+      ORDER BY last_name ASC`;
+
+      
+    return [...sellers];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch sellers.");
+  }
+}
+
+export async function fetchCategories() {
+  try {
+    const categories = await sql<Category[]>`SELECT
+      id,
+      name
+      FROM categories
+      ORDER BY name ASC`;
+    return [...categories];
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch sellers.");
+
+  }
 }
 
 export async function fetchSellerByEmail(email: string) {
@@ -81,14 +159,3 @@ export async function fetchSellerByEmail(email: string) {
 	return data[0]
 }
 
-export async function fetchCategories() {
-  try {
-		return await sql<Category[]>`
-      SELECT * 
-      FROM categories
-    `;
-  } catch (err) {
-    console.error('Database Error:', err);
-    throw new Error('Failed to fetch all categories.');
-  }
-}

@@ -1,0 +1,44 @@
+
+
+.ratings-form fieldset{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ratings-form input, .ratings-form textarea {
+    width: 100%;
+}
+
+.ratings-history .container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.itemDetails > div {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.ratings-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.star-rating {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.star filled {
+    color: var(--primary-color);
+}
