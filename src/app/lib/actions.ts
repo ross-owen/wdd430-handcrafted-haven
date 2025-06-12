@@ -15,12 +15,14 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 const CreateItemFormSchema = z.object({
 	id: z.string(),
 	seller_id: z.string(),
-	category_id: z.string(),
+	category_id: z.string({
+		invalid_type_error: 'Please select a category'
+	}),
 	price: z.coerce
 		.number()
 		.gt(0, { message: 'Please enter an amount greater than $0.' }),
-	description: z.string(),
-	title: z.string(),
+	description: z.string().min(1, 'Please enter a description for the item'),
+	title: z.string().min(1, 'Please enter item title'),
 	image_name: z.string(),
 });
 
@@ -64,7 +66,7 @@ export async function createItem(prevState: ItemState, formData: FormData) {
 		price: formData.get('price'),
 		description: formData.get('description'),
 		title: formData.get('title'),
-		image_name: formData.get('image-name'),
+		image_name:'', //formData.get('image-name'),
 	});
 
 	if (!validatedFields.success) {
@@ -74,15 +76,36 @@ export async function createItem(prevState: ItemState, formData: FormData) {
 		};
 	}
 
-	const { seller_id, category_id, price, description, title, image_name } =
+	const imageName = formData.get('image-name') as File;
+	if (!imageName || !(imageName instanceof File)) {
+		return {
+			errors: { image_name: ['Invalid file.'] },
+			message: 'Missing or invalid profile picture.',
+		};
+	}
+
+	const MAX_SIZE = 10 * 1024 * 1024; // Check if file is under the 10 MB maximum
+	if (imageName.size > MAX_SIZE) {
+		return {
+			errors: { image_name: ['File too large. Maximum size is 10MB.'] },
+			message: 'File upload failed: image exceeds 10MB limit.',
+		};
+	}
+
+	const buffer = Buffer.from(await imageName.arrayBuffer());
+	const imageFile = `${Date.now()}_${imageName.name}`;
+	const filePath = path.join(process.cwd(), 'public/images', imageFile);
+
+	await writeFile(filePath, buffer);
+
+	const { seller_id, category_id, price, description, title } =
 		validatedFields.data;
-	const priceInCents = price * 100;
 	const created = new Date().toISOString().split('T')[0];
 
 	try {
 		await sql`
       INSERT INTO items (seller_id, category_id, price, description, title, created, image_name)
-      VALUES (${seller_id}, ${category_id}, ${priceInCents}, ${description}, ${title}, ${created}, ${image_name})
+      VALUES (${seller_id}, ${category_id}, ${price}, ${description}, ${title}, ${created}, ${imageFile})
     `;
 	} catch (error) {
 		// We'll log the error to the console for now
