@@ -3,13 +3,13 @@
 import {Category, Seller} from '@/app/lib/definitions';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { createItem, State } from '@/app/lib/actions';
+import { createItem, ItemState } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import styles from './create.module.css';
 
 export default function CreateItemForm({ categories, seller }: { categories: Category[], seller: Seller }) {
     
-  const initialState: State = { message: null, errors: {} };
+  const initialState: ItemState = { message: null, errors: {} };
   const [state, formAction] = useActionState(createItem, initialState);
 
   return (
