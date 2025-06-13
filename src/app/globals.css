@@ -58,6 +58,23 @@ button:hover {
   background-color: var(--background);
 }
 
+.a-button {
+  padding: 0.5rem 1rem;
+  margin: 0 0 1rem 0;
+  background-color: var(--secondary-color);
+  color: var(--background);
+  border-radius: var(--radius);
+  border: 1px solid var(--secondary-color);
+  text-decoration: none;
+}
+
+.a-button:hover {
+  padding: 0.5rem 1rem;
+  background-color: var(--background);
+  color: var(--secondary-color);
+}
+
+
 /* END FORM ELEMENTS */
 
 
