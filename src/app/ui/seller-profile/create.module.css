@@ -33,6 +33,10 @@
     padding: .5rem;
 }
 
+.create-item-form p {
+    color: maroon;
+}
+
 .create-item-form-buttons {
     display: flex;
     gap: .5rem;

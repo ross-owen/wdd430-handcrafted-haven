@@ -90,9 +90,15 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
                 id="image-name"
                 name="image-name"
                 type="file"
-                step="0.01"
-                placeholder="Upload item image"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                required
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file && file.size > 10 * 1024 * 1024) {
+                    alert('File too large. Maximum size is 10MB.');
+                    e.target.value = '';
+                  }
+                }}
               />
             </div>
           </div>

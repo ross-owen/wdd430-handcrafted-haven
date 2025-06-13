@@ -4,7 +4,7 @@ import styles from './create.module.css';
 export function CreateItem() {
   return (
     <Link
-      href="/seller-profile/create"
+      href="/item/create"
       className={styles['create-item-button']}
     >
       <span>Create</span>
