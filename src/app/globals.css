@@ -138,6 +138,10 @@ header > .nav > ul.mobile-menu.open {
   color: black;
 }
 
+.padding-top {
+  padding-top: 1rem;
+}
+
 footer {
   display: flex;
   align-items: center;
