@@ -5,6 +5,7 @@ import ResultsTable from "@/app/ui/browse/results";
 import Link from "next/link";
 import {fetchSellerById} from "@/app/lib/data";
 import styles from "@/app/ui/seller.module.css"
+import {notFound} from "next/navigation";
 
 export const metadata: Metadata = {
   title: 'Seller Profile',
@@ -24,7 +25,10 @@ export default async function SellerProfilePage({params} : SellerPageProps  ) {
     seller = await fetchSellerById(resolvedParams.sellerId);
   } catch (error) {
     console.error("Error retrieving seller details", error);
-    throw error;
+  }
+
+  if (!seller) {
+    notFound();
   }
 
   return (
