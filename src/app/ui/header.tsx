@@ -23,21 +23,44 @@ export default function Header({isLoggedIn} : {isLoggedIn: boolean}) {
 
 					<ul className={menuOpen ? 'mobile-menu open' : 'mobile-menu'}>
 						<li>
-							<Link href="/" className={pathname === "/" ? "active" : ""}>Home</Link>
+							<Link href="/" className={pathname === '/' ? 'active' : ''}>
+								Home
+							</Link>
 						</li>
 						<li>
-							<Link href="/browse" className={pathname === "/browse" ? "active" : ""}>Browse</Link>
+							<Link
+								href="/browse"
+								className={pathname === '/browse' ? 'active' : ''}
+							>
+								Browse
+							</Link>
 						</li>
-						{/* <li>
-							<Link href="/search" className={pathname === "/search" ? "active" : ""}>Search</Link>
-						</li> */}
+						{isLoggedIn && (
+							<li>
+								<Link
+									href="/seller-profile"
+									className={pathname === '/seller-profile' ? 'active' : ''}
+								>
+									Profile
+								</Link>
+							</li>
+						)}
 						<li>
 							{isLoggedIn ? (
-									<Link href="/logout" className={pathname === "/logout" ? "active" : ""}>Logout</Link>
+								<Link
+									href="/logout"
+									className={pathname === '/logout' ? 'active' : ''}
+								>
+									Logout
+								</Link>
 							) : (
-									<Link href="/login" className={pathname === "/login" ? "active" : ""}>Seller Login</Link>
+								<Link
+									href="/login"
+									className={pathname === '/login' ? 'active' : ''}
+								>
+									Seller Login
+								</Link>
 							)}
-
 						</li>
 					</ul>
 				</div>
