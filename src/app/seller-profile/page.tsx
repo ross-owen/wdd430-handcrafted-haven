@@ -35,7 +35,7 @@ export default async function SellerProfile() {
             <Link className={'a-button'} href="/item/create">Add a new item</Link>
           </div>
           <Suspense>
-            <ResultsTable query={''} seller_id={seller.id} category_id={''} rating={''} currentPage={1}/>
+            <ResultsTable query={''} seller_id={seller.id} category_id={''} rating={''} currentPage={1} random={false} />
           </Suspense>
         </section>
       </main>

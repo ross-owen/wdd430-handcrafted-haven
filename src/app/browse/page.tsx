@@ -2,6 +2,7 @@ import { fetchItemsPages, fetchSellers, fetchCategories } from "@/app/lib/data";
 import ResultsTable from "@/app/ui/browse/results";
 import SearchBar from "@/app/ui/browse/search-bar";
 import { UUID } from 'crypto';
+import { Suspense } from "react";
 
 
 export default async function Page(props: {
@@ -39,9 +40,18 @@ export default async function Page(props: {
   console.log("Total Pages:", totalPages);
 
   return (
-    <main>
-      <SearchBar sellers={sellers} categories={categories} />
-      <ResultsTable query={query} seller_id={seller_id} category_id={category_id} rating={rating} currentPage={currentPage} />
-    </main>
-  );
+		<main>
+			<SearchBar sellers={sellers} categories={categories} />
+			<Suspense>
+				<ResultsTable
+					query={query}
+					seller_id={seller_id}
+					category_id={category_id}
+					rating={rating}
+					currentPage={currentPage}
+					random={false}
+				/>
+			</Suspense>
+		</main>
+	);
 }

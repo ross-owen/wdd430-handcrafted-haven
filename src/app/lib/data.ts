@@ -207,3 +207,31 @@ export async function fetchRandomSeller() {
 	return data[0]
 }
 
+export async function fetchRandomItems() {
+  const data = await sql`
+    SELECT
+      items.id,
+      items.seller_id,
+      items.category_id,
+      items.price,
+      items.description,
+      items.title,
+      items.created,
+      items.modified,
+      items.image_name,
+      categories.name,
+      sellers.first_name,
+      sellers.last_name,
+      (
+        SELECT COALESCE(AVG(r.rating), 0)
+        FROM ratings r
+        WHERE r.item_id = items.id
+      ) AS average_rating
+    FROM items
+    JOIN sellers ON items.seller_id = sellers.id
+    JOIN categories ON items.category_id = categories.id
+    ORDER BY RANDOM()
+    LIMIT 3;
+  `;
+  return [...data];
+}

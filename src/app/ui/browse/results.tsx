@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/app/ui/browse.module.css';
-import { fetchFilteredItems } from '@/app/lib/data';
+import { fetchFilteredItems, fetchRandomItems } from '@/app/lib/data';
 import StarRating from './star';
 import { UUID } from 'crypto';
 
@@ -11,18 +11,30 @@ export default async function ResultsTable({
 	category_id,
 	rating,
 	currentPage,
+	random,
 }: {
 	query: string;
 	seller_id: string,
 	category_id: string,
 	rating: string,
 	currentPage: number;
+	random: boolean;
 }) {
 
 	let items = [];
 
 	try {
-    items = await fetchFilteredItems(query, seller_id, category_id, rating, currentPage);
+		if (random) {
+			items = await fetchRandomItems();
+		} else {
+			items = await fetchFilteredItems(
+					query,
+					seller_id,
+					category_id,
+					rating,
+					currentPage
+				);
+		}
   } catch (error) {
     console.error("Error fetching filtered items:", error);
     return <p>Failed to load results.</p>;
@@ -48,7 +60,7 @@ export default async function ResultsTable({
 						<div className={`${styles['results-title-seller']}`}>
 							<h2>{item.title}</h2>
 							{/* This link path may need to be adjusted */}
-							<Link href={`/sellers/${item.seller_id}`}>
+							<Link href={`/seller-profile/${item.seller_id}`}>
 								<p>
 									{item.first_name} {item.last_name}
 								</p>
