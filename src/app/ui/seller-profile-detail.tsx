@@ -34,7 +34,7 @@ export default function SellerProfileDetail({seller}: SellerProfileDetailProps) 
             <p>{seller.location}</p>
           </div>
           <div className={styles.fieldset}>
-            <h4>Description</h4>
+            <h4>Biography</h4>
             <p>{seller.description}</p>
           </div>
           <div className={styles.fieldset}>

@@ -95,8 +95,6 @@ export async function fetchFilteredItems(
 	}
 }
 
-
-
 export async function fetchItemsPages(query: string) {
   try {
     const data = await sql`SELECT COUNT(*)
@@ -196,6 +194,16 @@ export async function fetchCategories() {
 
 export async function fetchSellerByEmail(email: string) {
 	const data = await sql<Seller[]>`SELECT * FROM sellers WHERE email = ${email}`;
+	return data[0]
+}
+
+export async function fetchSellerById(id: string) {
+	const data = await sql<Seller[]>`SELECT * FROM sellers WHERE id = ${id}`;
+	return data[0]
+}
+
+export async function fetchRandomSeller() {
+	const data = await sql<Seller[]>`SELECT * FROM sellers ORDER BY RANDOM() LIMIT 1`;
 	return data[0]
 }
 

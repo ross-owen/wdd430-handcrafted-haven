@@ -22,7 +22,7 @@ export default async function RootLayout({
       <body>
         <Header isLoggedIn={validSession} />
         {children}
-        <Footer />
+        <Footer isLoggedIn={validSession} />
       </body>
     </html>
   );
