@@ -103,10 +103,16 @@ header > .nav > ul.mobile-menu {
 
 .nav > ul > li > a {
   text-decoration: none;
-  color: black;
+  color: var(--primary-color);
+}
+
+.nav > ul > li > a:hover {
+  text-decoration: underline;
+  color: var(--secondary-color);
 }
 
 .nav > ul > li > a.active {
+  color: var(--secondary-color);
   text-decoration: underline;
 }
 
@@ -115,7 +121,7 @@ header > .nav > ul.mobile-menu {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: black;
+  color: var(--primary-color);
   cursor: pointer;
   padding: 0;
 }
@@ -135,7 +141,7 @@ header > .nav > ul.mobile-menu.open {
 .nav > button {
   width: 100%;
   text-align: right;
-  color: black;
+  color: var(--primary-color);
 }
 
 .padding-top {
@@ -147,6 +153,16 @@ footer {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: var(--secondary-color);
 }
 
 @media screen and (min-width: 600px) {
