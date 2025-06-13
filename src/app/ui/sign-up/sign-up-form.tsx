@@ -23,7 +23,7 @@ export default function SignUpForm() {
 				<input type="text" id="last_name" name="last_name" required />
 
 				<label htmlFor="description">Biography</label>
-				<input type="textarea" id="description" name="description" required />
+				<textarea id="description" name="description" required></textarea>
 
 				<label htmlFor="location">Location</label>
 				<input type="text" id="location" name="location" required />
