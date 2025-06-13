@@ -41,7 +41,7 @@ export default async function SellerProfilePage({params} : SellerPageProps  ) {
             <h2>{seller.first_name}'s Items</h2>
           </div>
           <Suspense>
-            <ResultsTable query={''} seller_id={seller.id} category_id={''} rating={''} currentPage={1}/>
+            <ResultsTable query={''} seller_id={seller.id} category_id={''} rating={''} currentPage={1} random={false} />
           </Suspense>
         </section>
       </main>
