@@ -129,7 +129,17 @@ const CreateSellerFormSchema = z.object({
 	redirectTo: z.string()
 });
 
+const UpdateSellerFormSchema = z.object({
+	id: z.string(),
+	first_name: z.string().max(50),
+	last_name: z.string().max(50),
+	description: z.string(),
+	location: z.string().max(256),
+	modified: z.date(),
+});
+
 const CreateSeller = CreateSellerFormSchema.omit({});
+const UpdateSeller = UpdateSellerFormSchema.omit({id: true, modified: true});
 
 export type SellerState = {
 	errors?: {
@@ -140,6 +150,16 @@ export type SellerState = {
 		email?: string[];
 		password?: string[];
         profile_pic?: string[];
+	};
+	message?: string | null;
+};
+
+export type UpdateSellerState = {
+	errors?: {
+		first_name?: string[];
+		last_name?: string[];
+		description?: string[];
+		location?: string[];
 	};
 	message?: string | null;
 };
@@ -206,4 +226,35 @@ export async function createSeller(
 	loginForm.set('redirectTo', redirectTo)
 	await signIn('credentials', loginForm, { redirectTo });
 	return {message: null}
+}
+
+export async function updateSeller(id: string, prevState: UpdateSellerState, formData: FormData) {
+	const validatedFields = UpdateSeller.safeParse({
+		first_name: formData.get('first_name'),
+		last_name: formData.get('last_name'),
+		description: formData.get('description'),
+		location: formData.get('location'),
+	});
+
+	if (!validatedFields.success) {
+		return {
+			errors: validatedFields.error.flatten().fieldErrors,
+			message: 'Validation failed. Please fix the errors above.',
+		};
+	}
+	const { first_name, last_name, description, location } = validatedFields.data;
+	const modified = new Date().toISOString();
+
+	await sql`
+		UPDATE sellers SET 
+			 first_name = ${first_name}, 
+			 last_name = ${last_name}, 
+			 description = ${description}, 
+			 location = ${location},
+			 modified = ${modified}
+		WHERE id = ${id}
+	`;
+
+	revalidatePath(`/seller-profile/${id}`);
+	redirect(`/seller-profile/${id}`);
 }

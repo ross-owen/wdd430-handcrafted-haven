@@ -2,11 +2,12 @@
 import {auth} from '@/auth';
 import {redirect} from 'next/navigation';
 import {Suspense} from "react";
-import SellerProfileDetail from "@/app/ui/seller-profile-detail";
+import SellerProfileDetail from "@/app/ui/seller-profile/seller-profile-detail";
 import {fetchSellerByEmail} from "@/app/lib/data";
 import ResultsTable from "@/app/ui/browse/results";
 import Link from "next/link";
-import styles from "@/app/ui/seller.module.css"
+import styles from "@/app/ui/seller-profile/seller.module.css"
+import SellerProfileUpdate from "@/app/ui/seller-profile/seller-profile-update";
 
 export const metadata: Metadata = {
   title: 'Seller Profile',
@@ -27,7 +28,7 @@ export default async function SellerProfile() {
   return (
       <main>
         <Suspense>
-          <SellerProfileDetail seller={seller}/>
+          <SellerProfileUpdate seller={seller}/>
         </Suspense>
         <section>
           <div className={styles.items}>

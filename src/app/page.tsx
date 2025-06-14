@@ -1,5 +1,5 @@
 import Hero from '@/app/ui/hero';
-import SellerSpotlight from '@/app/ui/seller-spotlight';
+import SellerSpotlight from '@/app/ui/seller-profile/seller-spotlight';
 import ResultsTable from './ui/browse/results';
 import { Suspense } from 'react';
 
