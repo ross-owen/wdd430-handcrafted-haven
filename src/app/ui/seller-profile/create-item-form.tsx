@@ -19,15 +19,12 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
         {/* Seller id */}
         <div className="mb-4">
           {/*this should be hidden*/}
-          <label htmlFor="seller-id" className="mb-2 block text-sm font-medium">
-            Your seller id
-          </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
                 id="seller-id"
                 name="seller-id"
-                type="text"
+                type="hidden"
                 step="0.01"
                 value={seller.id}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -55,7 +52,6 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
             <select
               id="category-id"
               name="category-id"
-              className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               defaultValue=""
               aria-describedby="category-id-error"
             >
@@ -80,7 +76,7 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
         </div>
 
         {/* Item Image */}
-        <div className="mb-4">
+        <div className={styles['input-image']}>
           <label htmlFor="image-name" className="mb-2 block text-sm font-medium">
             Upload item image
           </label>
@@ -90,7 +86,6 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
                 id="image-name"
                 name="image-name"
                 type="file"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 required
                 onChange={(e) => {
                   const file = e.target.files?.[0];
@@ -116,8 +111,6 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
                 name="title"
                 type="text"
                 step="0.01"
-                placeholder="Enter item title"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby='title-error'
               />
             </div>
@@ -144,8 +137,6 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
                 name="price"
                 type="number"
                 step="0.01"
-                placeholder="Enter USD amount"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby='price-error'
               />
             </div>
@@ -172,8 +163,6 @@ export default function CreateItemForm({ categories, seller }: { categories: Cat
                 name="description"
                 type="text"
                 step="0.01"
-                placeholder="Enter item description"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 aria-describedby='description-error'
               />
             </div>

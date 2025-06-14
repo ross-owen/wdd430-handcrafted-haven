@@ -1,3 +1,7 @@
+.main {
+    display: flex;
+}
+
 /* Create button in the seller profile page */
 .create-item-button {
     border-radius: 5px;
@@ -16,21 +20,32 @@
 }
 
 /* Create item form styling */
-.create-item-form input:read-only {
-    background-color:lightgray;
-}
-.create-item-form > div > div{
-    margin-bottom: 2rem;
+.create-item-form {
+    margin: 0 auto;
 }
 
-.create-item-form label {
-    margin-bottom: 5px;
+.create-item-form input[type=text],
+.create-item-form input[type=number] {
+    width: 100%;
 }
 
 .create-item-form select {
-    max-width: 385px;
+    width: 102.5%;
     font-size: 1.2rem;
     padding: .5rem;
+    padding-left: 0;
+}
+
+.input-image {
+    margin-top: 1.5rem;
+}
+
+.create-item-form > div > div {
+    margin-bottom: .5rem;
+}
+
+.create-item-form label {
+    margin-bottom: 1px;
 }
 
 .create-item-form p {
@@ -38,6 +53,7 @@
 }
 
 .create-item-form-buttons {
+    margin-top: 1.5rem;
     display: flex;
     gap: .5rem;
 }
