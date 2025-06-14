@@ -21,7 +21,6 @@ export default function SellerProfileDetail({seller}: SellerProfileDetailProps) 
   };
 
   const since = seller.created ? formatDate(new Date(seller.created)) : '';
-  const lastUpdated = seller.modified ? formatDate(new Date(seller.modified)) : '';
 
   return (
       <div className={styles['seller-wrapper']}>
@@ -40,10 +39,6 @@ export default function SellerProfileDetail({seller}: SellerProfileDetailProps) 
           <div className={styles.fieldset}>
             <h4>Member Since</h4>
             <p>{since}</p>
-          </div>
-          <div className={styles.fieldset}>
-            <h4>Last Updated</h4>
-            <p>{lastUpdated}</p>
           </div>
         </section>
         <section>

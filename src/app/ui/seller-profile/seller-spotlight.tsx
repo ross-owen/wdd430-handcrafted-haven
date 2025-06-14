@@ -1,5 +1,5 @@
 ﻿import {inter} from '@/app/ui/fonts';
-import styles from './home.module.css';
+import styles from '../home.module.css';
 import Image from "next/image";
 import {fetchRandomSeller} from "@/app/lib/data";
 import Link from "next/link";

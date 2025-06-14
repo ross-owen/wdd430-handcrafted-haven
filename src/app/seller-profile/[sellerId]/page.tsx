@@ -1,10 +1,10 @@
 ﻿import {Metadata} from 'next';
 import {Suspense} from "react";
-import SellerProfileDetail from "@/app/ui/seller-profile-detail";
+import SellerProfileDetail from "@/app/ui/seller-profile/seller-profile-detail";
 import ResultsTable from "@/app/ui/browse/results";
 import Link from "next/link";
 import {fetchSellerById} from "@/app/lib/data";
-import styles from "@/app/ui/seller.module.css"
+import styles from "@/app/ui/seller-profile/seller.module.css"
 import {notFound} from "next/navigation";
 
 export const metadata: Metadata = {

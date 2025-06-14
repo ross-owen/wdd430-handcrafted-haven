@@ -10,7 +10,7 @@ export const authConfig = {
             const isLoggingOut = nextUrl.pathname === '/logout';
             const isOnLogin = nextUrl.pathname === '/login';
             const isOnSignup = nextUrl.pathname === '/sign-up';
-            const isOnProfile = nextUrl.pathname.startsWith('/seller-profile');
+            const isOnProfile = nextUrl.pathname === '/seller-profile';
 
             if (isLoggingOut) {
                 return true;

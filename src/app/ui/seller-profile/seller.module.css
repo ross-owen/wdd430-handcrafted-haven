@@ -1,0 +1,86 @@
+.seller-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+}
+
+.seller-wrapper h1 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.pad-bottom {
+  padding-bottom: 1rem;
+}
+
+.near-max-width {
+  width: 90%;
+}
+
+.fieldset h4 {
+  margin: 0;
+  padding: 0.5rem 0;
+  color: var(--accent1-color);
+}
+
+.fieldset p {
+  margin: 0;
+  padding: 0 0 0.8rem 0;
+}
+
+.items {
+  width: 80%;
+  align-items: center;
+  margin: auto;
+  position: relative;
+}
+
+.items a {
+  position: absolute;
+  right: 0;
+  top: -0.4rem;
+}
+
+.update-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 500px;
+}
+
+.update-details, .update-pic-upload {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.update-details > input {
+  margin-bottom: 1rem;
+  max-width: 500px;
+}
+
+.update-details > textarea {
+  margin-bottom: 1rem;
+}
+
+.seller-pic {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 600px) {
+  .seller-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    justify-items: center;
+  }
+
+  .side-by-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
