@@ -1,27 +1,32 @@
 ﻿import {inter} from '@/app/ui/fonts';
 import styles from './home.module.css';
 import Image from "next/image";
+import {fetchRandomSeller} from "@/app/lib/data";
+import Link from "next/link";
 
-export default function SellerSpotlight() {
+export default async function SellerSpotlight() {
+    const seller = await fetchRandomSeller();
+    console.log()
     return (
         <section className={`${inter.className} ${styles["seller-spotlight"]}`}>
             <div className={`${styles["seller-spotlight-wrapper"]}`}>
                 <h2>Seller spotlight</h2>
                 <div className={`${styles["seller-spotlight-detail"]}`}>
-                    <h3>Katie&apos;s Pottery</h3>
-                    <p>For over 13 years, Katie has transformed clay into unique pottery. Her passion shines through in every piece, from her distinctive original designs to special, custom-commissioned works crafted just for you. With Katie, you&apos;re getting a handcrafted work of art with a personal touch.</p>
+                    <h3>{seller.first_name} {seller.last_name}</h3>
+                    <p>{seller.description}</p>
                 </div>
                 <div className={`${styles["seller-spotlight-detail"]}`}>
                     <h4>Location</h4>
-                    <p>From her home studio in Mesa, Arizona, Katie draws inspiration from her surroundings, transforming creative visions into beautiful pottery pieces.</p>
+                    <p>{seller.location}</p>
                 </div>
                 <div className={`${styles["seller-spotlight-detail"]}`}>
-                    <h4>Testimonial</h4>
-                    <p>`&quot;Our custom mug from Katie is absolutely perfect! The quality is amazing, and it&apos;s clear how much care she puts into every piece. It&apos;s truly become my favorite.`&quot; — Sarah M.</p>
+                    <div className={'padding-top'}>
+                        <Link href={`/seller-profile/${seller.id}`} className={'a-button'} title={`${seller.first_name} ${seller.last_name}'s profile`}>Visit {seller.first_name}'s Profile</Link>
+                    </div>
                 </div>
             </div>
             <div className={`${styles["seller-image-wrapper"]}`}>
-                <Image src="/images/seller-spotlight_large.webp" alt="Katie&apos;s Pottery" width={215} height={301}/>
+                <Image src={`/images/${seller.profile_pic}`} alt={`${seller.first_name} ${seller.last_name}`} width={215} height={300}/>
             </div>
         </section>
     );

@@ -117,10 +117,10 @@ export async function createItem(prevState: ItemState, formData: FormData) {
 }
 
 const CreateSellerFormSchema = z.object({
-	first_name: z.string(),
-	last_name: z.string(),
+	first_name: z.string().max(50),
+	last_name: z.string().max(50),
 	description: z.string(),
-	location: z.string(),
+	location: z.string().max(256),
 	email: z.string().email(),
 	password: z.string().min(6),
 	created: z.date(),
