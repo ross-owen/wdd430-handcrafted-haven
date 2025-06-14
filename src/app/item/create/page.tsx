@@ -3,6 +3,7 @@ import {fetchCategories, fetchSellerByEmail} from '@/app/lib/data';
 import { Metadata } from 'next';
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
+import styles from '@/app/ui/seller-profile/create.module.css'
  
 export const metadata: Metadata = {
   title: 'Create Item',
@@ -23,7 +24,7 @@ export default async function Page() {
   const categories = await fetchCategories();
  
   return (
-    <main>
+    <main className={styles['main']}>
       {/*<Breadcrumbs
         breadcrumbs={[
           { label: 'Invoices', href: '/dashboard/invoices' },
