@@ -1,17 +1,19 @@
 'use client'
 
 import Link from "next/link";
-import Logo from "@/app/ui/nav/logo";
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { usePathname } from "next/navigation";
 
+const Logo = lazy(() => import('@/app/ui/nav/logo'));
 
 export default function Header({isLoggedIn} : {isLoggedIn: boolean}) {
     const [menuOpen, setMenuOpen] = useState(false);
     const pathname = usePathname();
     return (
 			<header>
-				<Logo />
+				<Suspense fallback={<div>Loading...</div>}>
+					<Logo />
+				</Suspense>
 				<div className="nav">
 					<button
 						className="hamburger-button"

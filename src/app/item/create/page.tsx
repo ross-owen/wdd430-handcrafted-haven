@@ -1,41 +1,39 @@
-import CreateItemForm from '@/app/ui/seller-profile/create-item-form';
-import {fetchCategories, fetchSellerByEmail} from '@/app/lib/data';
+import { Suspense, lazy } from 'react';
+
+import { fetchCategories, fetchSellerByEmail } from '@/app/lib/data';
 import { Metadata } from 'next';
-import {auth} from "@/auth";
-import {redirect} from "next/navigation";
-import styles from '@/app/ui/seller-profile/create.module.css'
- 
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
+import styles from '@/app/ui/seller-profile/create.module.css';
+
+const CreateItemForm = lazy(
+	() => import('@/app/ui/seller-profile/create-item-form')
+);
+
+
 export const metadata: Metadata = {
-  title: 'Create Item',
+	title: 'Create Item',
 };
 
 export default async function Page() {
-  const session = await auth();
+	const session = await auth();
 
-  if (!session || !session.user || !session.user.email) {
-    redirect('/login');
-  }
+	if (!session || !session.user || !session.user.email) {
+		redirect('/login');
+	}
 
-  const seller = await fetchSellerByEmail(session.user.email);
-  if (!seller) {
-    redirect('/login');
-  }
+	const seller = await fetchSellerByEmail(session.user.email);
+	if (!seller) {
+		redirect('/login');
+	}
 
-  const categories = await fetchCategories();
- 
-  return (
-    <main className={styles['main']}>
-      {/*<Breadcrumbs
-        breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
-          {
-            label: 'Create Invoice',
-            href: '/dashboard/invoices/create',
-            active: true,
-          },
-        ]}
-      />*/}
-      <CreateItemForm categories={categories} seller={seller}/>
-    </main>
-  );
+	const categories = await fetchCategories();
+
+	return (
+		<main className={styles['main']}>
+			<Suspense fallback={<div>Loading...</div>}>
+				<CreateItemForm categories={categories} seller={seller} />
+			</Suspense>
+		</main>
+	);
 }

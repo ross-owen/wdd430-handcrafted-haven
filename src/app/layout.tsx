@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense, lazy } from 'react';
+
 import "./globals.css";
-import Header from "@/app/ui/header";
-import Footer from "@/app/ui/footer";
+const Header = lazy(() => import("@/app/ui/header"))
+const Footer = lazy(() => import('@/app/ui/footer'));
+
 import {auth} from '@/auth';
 
 export const metadata: Metadata = {
@@ -18,12 +21,16 @@ export default async function RootLayout({
   const validSession = !!(session && session.user && session.user.email);
 
   return (
-    <html lang="en">
-      <body>
-        <Header isLoggedIn={validSession} />
-        {children}
-        <Footer isLoggedIn={validSession} />
-      </body>
-    </html>
-  );
+		<html lang="en">
+			<body>
+				<Suspense fallback={<div>Loading...</div>}>
+					<Header isLoggedIn={validSession} />
+				</Suspense>
+				{children}
+				<Suspense fallback={<div>Loading...</div>}>
+					<Footer isLoggedIn={validSession} />
+				</Suspense>
+			</body>
+		</html>
+	);
 }

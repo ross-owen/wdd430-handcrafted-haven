@@ -194,10 +194,12 @@ async function seedRatings() {
 export async function GET() {
     try {
         await sql.begin(() => [
+            // Disabled these to make sure things don't get reseeded
+            
             // seedSellers(),
             // seedCategories(),
             // seedItems(),
-            seedRatings(),
+            // seedRatings(),
         ]);
 
         return Response.json({message: 'Database seeded successfully'});
