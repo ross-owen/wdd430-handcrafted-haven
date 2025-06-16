@@ -27,18 +27,3 @@
     resize: vertical;
     min-height: 100px;
 }
-
-.star-rating {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.star {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-    cursor: pointer;
-}
-
-.star filled {
-    color: var(--primary-color);
-}

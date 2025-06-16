@@ -36,7 +36,7 @@ export default function ItemDetails({ item, ratings }: ItemDetailsProps) {
       </section>
       <section>
         <div>
-          <ReviewForm ratings={ratings}  />
+          <ReviewForm ratings={ratings} item={item} />
           <ReviewHistory ratings={ratings} />
         </div>
       </section>
