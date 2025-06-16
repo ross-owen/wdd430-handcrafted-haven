@@ -1,9 +1,8 @@
 import { fetchItemsPages, fetchSellers, fetchCategories } from "@/app/lib/data";
-import ResultsTable from "@/app/ui/browse/results";
-import SearchBar from "@/app/ui/browse/search-bar";
-import { UUID } from 'crypto';
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 
+const ResultsTable = lazy(() => import('@/app/ui/browse/results'));
+const SearchBar = lazy(() => import('@/app/ui/browse/search-bar'));
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -41,8 +40,10 @@ export default async function Page(props: {
 
   return (
 		<main>
-			<SearchBar sellers={sellers} categories={categories} />
-			<Suspense>
+			<Suspense fallback={<div>Loading...</div>}>
+				<SearchBar sellers={sellers} categories={categories} />
+			</Suspense>
+			<Suspense fallback={<div>Loading...</div>}>
 				<ResultsTable
 					query={query}
 					seller_id={seller_id}

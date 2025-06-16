@@ -1,6 +1,7 @@
-﻿import LoginForm from '@/app/ui/login-form';
-import {Suspense} from 'react';
+﻿import { Suspense, lazy } from 'react';
 import {Metadata} from 'next';
+
+const LoginForm = lazy(() => import('@/app/ui/login-form'));
 
 export const metadata: Metadata = {
   title: 'Login',
@@ -8,12 +9,12 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-      <main>
-        <div>
-          <Suspense>
-            <LoginForm/>
-          </Suspense>
-        </div>
-      </main>
-  );
+		<main>
+			<div>
+				<Suspense fallback={<div>Loading...</div>}>
+					<LoginForm />
+				</Suspense>
+			</div>
+		</main>
+	);
 }

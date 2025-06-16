@@ -1,7 +1,9 @@
-import SignUpForm from '@/app/ui/sign-up/sign-up-form';
-import styles from '@/app/ui/sign-up/sign-up-form.module.css';
+import { Suspense, lazy } from 'react';
 
+import styles from '@/app/ui/sign-up/sign-up-form.module.css';
 import { Metadata } from 'next';
+
+const SignUpForm = lazy(() => import('@/app/ui/sign-up/sign-up-form'));
 
 export const metadata: Metadata = {
 	title: 'Seller Sign Up',
@@ -10,7 +12,9 @@ export const metadata: Metadata = {
 export default async function Page() {
 	return (
 		<main className={styles['main']}>
-			<SignUpForm />
+			<Suspense fallback={<div>Loading...</div>}>
+				<SignUpForm />
+			</Suspense>
 		</main>
 	);
 }

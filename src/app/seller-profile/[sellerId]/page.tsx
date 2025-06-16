@@ -1,11 +1,14 @@
 ﻿import {Metadata} from 'next';
-import {Suspense} from "react";
-import SellerProfileDetail from "@/app/ui/seller-profile/seller-profile-detail";
-import ResultsTable from "@/app/ui/browse/results";
-import Link from "next/link";
+import {Suspense, lazy} from "react";
+// import Link from "next/link";
 import {fetchSellerById} from "@/app/lib/data";
 import styles from "@/app/ui/seller-profile/seller.module.css"
 import {notFound} from "next/navigation";
+
+const SellerProfileDetail = lazy(
+	() => import('@/app/ui/seller-profile/seller-profile-detail')
+);
+const ResultsTable = lazy(() => import('@/app/ui/browse/results'));
 
 export const metadata: Metadata = {
   title: 'Seller Profile',
@@ -32,19 +35,26 @@ export default async function SellerProfilePage({params} : SellerPageProps  ) {
   }
 
   return (
-      <main>
-        <Suspense>
-          <SellerProfileDetail seller={seller}/>
-        </Suspense>
-        <section>
-          <div className={styles.items}>
-            <h2>{seller.first_name}'s Items</h2>
-          </div>
-          <Suspense>
-            <ResultsTable query={''} seller_id={seller.id} category_id={''} rating={''} currentPage={1} random={false} />
-          </Suspense>
-        </section>
-      </main>
-  );
+		<main>
+			<Suspense fallback={<div>Loading...</div>}>
+				<SellerProfileDetail seller={seller} />
+			</Suspense>
+			<section>
+				<div className={styles.items}>
+					<h2>{seller.first_name}'s Items</h2>
+				</div>
+				<Suspense fallback={<div>Loading...</div>}>
+					<ResultsTable
+						query={''}
+						seller_id={seller.id}
+						category_id={''}
+						rating={''}
+						currentPage={1}
+						random={false}
+					/>
+				</Suspense>
+			</section>
+		</main>
+	);
 
 }
