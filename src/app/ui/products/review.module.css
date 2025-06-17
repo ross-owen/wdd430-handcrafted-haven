@@ -1,0 +1,9 @@
+.rating-name-stars {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.rating-name-stars > span > h3 {
+    margin: 0;
+}

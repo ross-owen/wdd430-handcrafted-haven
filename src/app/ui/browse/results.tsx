@@ -2,8 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/app/ui/browse.module.css';
 
-import { UUID } from 'crypto';
-
 import { fetchFilteredItems, fetchRandomItems } from '@/app/lib/data';
 import StarRating from '../star';
 

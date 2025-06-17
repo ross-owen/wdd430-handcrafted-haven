@@ -159,7 +159,8 @@ console.log("Fetching ratings for item ID:", id);
     ratings.item_id,
     ratings.rating,
     ratings.review,
-    ratings.created
+    ratings.created,
+    ratings.name
     FROM ratings
     WHERE ratings.item_id = ${id}
     `;
