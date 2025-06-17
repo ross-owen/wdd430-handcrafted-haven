@@ -11,6 +11,7 @@ export default async function Page(props: {
     seller?: string;
     category?: string;
     rating?: string;
+    price?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
@@ -19,6 +20,7 @@ export default async function Page(props: {
   const seller_id = searchParams?.seller || '';
 	const category_id = searchParams?.category || '';
 	const rating = searchParams?.rating || '';
+  const price_range = searchParams?.price || '';
 
   const [totalPages, rawSellers, categories] = await Promise.all([
     fetchItemsPages(query),
@@ -51,6 +53,7 @@ export default async function Page(props: {
 					rating={rating}
 					currentPage={currentPage}
 					random={false}
+          price_range={price_range}
 				/>
 			</Suspense>
 		</main>

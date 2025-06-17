@@ -48,6 +48,7 @@ export default async function SellerProfile() {
 						rating={''}
 						currentPage={1}
 						random={false}
+						price_range={''}
 					/>
 				</Suspense>
 			</section>

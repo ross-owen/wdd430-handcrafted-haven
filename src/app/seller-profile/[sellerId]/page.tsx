@@ -51,6 +51,7 @@ export default async function SellerProfilePage({params} : SellerPageProps  ) {
 						rating={''}
 						currentPage={1}
 						random={false}
+						price_range={''}
 					/>
 				</Suspense>
 			</section>

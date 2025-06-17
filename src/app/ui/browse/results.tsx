@@ -15,6 +15,7 @@ export default async function ResultsTable({
 	rating,
 	currentPage,
 	random,
+	price_range,
 }: {
 	query: string;
 	seller_id: string,
@@ -22,6 +23,7 @@ export default async function ResultsTable({
 	rating: string,
 	currentPage: number;
 	random: boolean;
+	price_range: string;
 }) {
 
 	let items = [];
@@ -35,6 +37,7 @@ export default async function ResultsTable({
 					seller_id,
 					category_id,
 					rating,
+					price_range,
 					currentPage
 				);
 		}
