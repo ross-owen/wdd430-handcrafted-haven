@@ -199,4 +199,8 @@ footer a:hover {
     width: 90%;
     margin: 0 auto;
   }
+
+  main {
+    margin: 1rem;
+  }
 }
