@@ -331,11 +331,11 @@ console.log("Raw rating value:", formData);
 
   try {
 	console.log("Attempting to insert review:", { item_id, rating, review, created, name });
-    let response = await sql`
-		INSERT INTO ratings (item_id, rating, review, created, name)
-		VALUES (${item_id}, ${rating}, ${review}, ${created}, ${name})`;
+    const response = await sql`
+        INSERT INTO ratings (item_id, rating, review, created, name)
+        VALUES (${item_id}, ${rating}, ${review}, ${created}, ${name})`;
 
-	console.log("Review inserted successfully:", response);
+	  console.log("Review inserted successfully:", response);
   } catch (error) {
     console.error("Error creating review:", error);
     return {

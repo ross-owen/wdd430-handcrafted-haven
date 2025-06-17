@@ -4,7 +4,7 @@ import styles from '@/app/ui/browse.module.css';
 
 import { UUID } from 'crypto';
 
-import { fetchFilteredItems } from '@/app/lib/data';
+import { fetchFilteredItems, fetchRandomItems } from '@/app/lib/data';
 import StarRating from '../star';
 
 
