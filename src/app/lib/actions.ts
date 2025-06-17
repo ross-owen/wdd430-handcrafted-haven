@@ -1,5 +1,6 @@
 ﻿"use server";
 
+
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
@@ -11,6 +12,7 @@ import path from 'path';
 import bcrypt from 'bcryptjs';
 import sharp from 'sharp';
 import { file } from 'zod/v4';
+
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -95,6 +97,7 @@ export async function createItem(prevState: ItemState, formData: FormData) {
   }
 
 
+
 	const fileBuffer = Buffer.from(await imageName.arrayBuffer());
 	const imageFile = `${Date.now()}_${imageName.name.split('.')[0]}.webp`;
 	const filePath = path.join(process.cwd(), 'public/images', imageFile);
@@ -104,6 +107,7 @@ export async function createItem(prevState: ItemState, formData: FormData) {
 		.resize({ width: 600, height: 600, fit: 'inside' }) // Maintain aspect ratio
 		.webp({ quality: 75 })
 		.toFile(filePath);
+
 
   const { seller_id, category_id, price, description, title } =
     validatedFields.data;
@@ -217,6 +221,7 @@ export async function createSeller(prevState: SellerState, formData: FormData) {
 		.resize({ width: 600, height: 600, fit: 'inside' }) // Maintain aspect ratio
 		.webp({ quality: 75 })
 		.toFile(filePath);
+
 
   const { first_name, last_name, description, location, email, password } =
     validatedFields.data;
