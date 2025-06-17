@@ -13,7 +13,7 @@ export default function Hero() {
           of quality craftsmanship, thoughtfully categorized for easy Browse.</p>
         <a className={'a-button'} href={'/browse'}>Click to get started</a>
         <div className={`${styles['hero-image-wrapper']}`}>
-          <Image src="/images/hero_large.webp" alt="Handcrafted Haven" width={430} height={287}/>
+          <Image src="/images/hero_large.webp" alt="Handcrafted Haven" width={430} height={287} priority/>
         </div>
       </section>
   );

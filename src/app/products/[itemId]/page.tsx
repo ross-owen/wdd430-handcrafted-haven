@@ -1,9 +1,10 @@
 import { Metadata } from "next";
-
+import { Suspense, lazy } from 'react';
 
 import React from "react";
-import ItemDetails from "@/app/ui/products/product-details";
 import { fetchItemDetails, fetchRatings } from "@/app/lib/data";
+
+const ItemDetails = lazy(() => import('@/app/ui/products/product-details'));
 
 export const metadata: Metadata = {
   title: "Item Details",
@@ -36,8 +37,10 @@ export default async function Page({ params, searchParams }: PageProps) {
     return <p>Item not found.</p>;
   }
   return (
-    <main>
-      <ItemDetails item={item} ratings={ratings ?? []} />
-    </main>
-  );
+		<main>
+			<Suspense fallback={<div>Loading...</div>}>
+				<ItemDetails item={item} ratings={ratings ?? []} />
+			</Suspense>
+		</main>
+	);
 }

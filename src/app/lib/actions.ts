@@ -1,14 +1,18 @@
 ﻿"use server";
 
-import { signIn } from "@/auth";
-import { AuthError } from "next-auth";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import postgres from "postgres";
-import { writeFile } from "fs/promises";
-import path from "path";
-import bcrypt from "bcryptjs";
+
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
+import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import postgres from 'postgres';
+import { writeFile } from 'fs/promises';
+import path from 'path';
+import bcrypt from 'bcryptjs';
+import sharp from 'sharp';
+import { file } from 'zod/v4';
+
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -92,11 +96,18 @@ export async function createItem(prevState: ItemState, formData: FormData) {
     };
   }
 
-  const buffer = Buffer.from(await imageName.arrayBuffer());
-  const imageFile = `${Date.now()}_${imageName.name}`;
-  const filePath = path.join(process.cwd(), "public/images", imageFile);
 
-  await writeFile(filePath, buffer);
+
+	const fileBuffer = Buffer.from(await imageName.arrayBuffer());
+	const imageFile = `${Date.now()}_${imageName.name.split('.')[0]}.webp`;
+	const filePath = path.join(process.cwd(), 'public/images', imageFile);
+
+	// Optimize with sharp
+	await sharp(fileBuffer)
+		.resize({ width: 600, height: 600, fit: 'inside' }) // Maintain aspect ratio
+		.webp({ quality: 75 })
+		.toFile(filePath);
+
 
   const { seller_id, category_id, price, description, title } =
     validatedFields.data;
@@ -201,11 +212,16 @@ export async function createSeller(prevState: SellerState, formData: FormData) {
     };
   }
 
-  const buffer = Buffer.from(await profilePicFile.arrayBuffer());
-  const fileName = `${Date.now()}_${profilePicFile.name}`;
-  const filePath = path.join(process.cwd(), "public/images", fileName);
+	const fileBuffer = Buffer.from(await profilePicFile.arrayBuffer());
+	const fileName = `${Date.now()}_${profilePicFile.name.split('.')[0]}.webp`;
+	const filePath = path.join(process.cwd(), 'public/images', fileName);
 
-  await writeFile(filePath, buffer);
+	// Optimize with sharp
+	await sharp(fileBuffer)
+		.resize({ width: 600, height: 600, fit: 'inside' }) // Maintain aspect ratio
+		.webp({ quality: 75 })
+		.toFile(filePath);
+
 
   const { first_name, last_name, description, location, email, password } =
     validatedFields.data;

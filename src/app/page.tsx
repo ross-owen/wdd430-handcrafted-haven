@@ -1,25 +1,30 @@
-import Hero from '@/app/ui/hero';
-import SellerSpotlight from '@/app/ui/seller-profile/seller-spotlight';
-import ResultsTable from './ui/browse/results';
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
+
+const Hero = lazy(() => import('@/app/ui/hero'));
+const SellerSpotlight = lazy(
+	() => import('@/app/ui/seller-profile/seller-spotlight')
+);
+const ResultsTable = lazy(() => import('./ui/browse/results'));
 
 export default function Home() {
 	return (
-		<div>
-			<main>
+		<main>
+			<Suspense fallback={<div>Loading Hero Image...</div>}>
 				<Hero />
+			</Suspense>
+			<Suspense fallback={<div>Loading Seller Spotlight...</div>}>
 				<SellerSpotlight />
-				<Suspense>
-					<ResultsTable
-						query={''}
-						seller_id={''}
-						category_id={''}
-						random={true}
-						currentPage={1}
-						rating={''}
-					/>
-				</Suspense>
-			</main>
-		</div>
+			</Suspense>
+			<Suspense fallback={<div>Loading Featured Items...</div>}>
+				<ResultsTable
+					query={''}
+					seller_id={''}
+					category_id={''}
+					random={true}
+					currentPage={1}
+					rating={''}
+				/>
+			</Suspense>
+		</main>
 	);
 }

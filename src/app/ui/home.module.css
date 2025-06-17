@@ -24,85 +24,6 @@
   object-fit: cover;
 }
 
-/* FEATURED ITEMS SECTION */
-
-.featured-items {
-  margin: 0rem 0.5rem;
-  width: 80%;
-  margin: auto;
-}
-
-.featured-items__title {
-  font-size: 1.15rem;
-}
-
-.featured-items-container {
-  display: flex;
-  list-style: none;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0;
-  overflow: scroll;
-  overflow-y:inherit;
-}
-
-.featured-items__grid {
-}
-
-.featured-item--highlighted {
-}
-
-/* item card css */
-
-.featured_items__card_wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  max-width: 90%;
-  transition: transform 0.1s ease-out;
-  
-
-}
-
-.featured_items__card_wrapper:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-    transition: transform 0.2s ease-out;
-    max-width: 100%;
-    overflow:visible;
-    overflow-y: visible;
-}
-
-.featured_items__card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  margin: 0.5rem;
-  text-decoration: none;
-
-}
-
-
-.featured_items__card_wrapper a {
-text-decoration: none;
-color: inherit;
-}
-
-.featured-item__image {
-}
-
-.featured-item__name {
-}
-
-.featured-item__price {
-}
-
-
 /* SELLER SPOTLIGHT */
 .seller-spotlight {
     width: 80%;
@@ -121,10 +42,6 @@ color: inherit;
 
 .seller-spotlight p {
     margin-top: 0.5rem;
-}
-
-.seller-spotlight-wrapper {
-
 }
 
 .seller-image-wrapper {
