@@ -13,7 +13,9 @@ export default function SearchBar({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(e.target.name, e.target.value);
     params.delete("page");
@@ -23,16 +25,19 @@ export default function SearchBar({
   return (
     <>
       <div>
+        <form className={`${styles["search-bar"]}`}>
+          <div className={`${styles["search-bar-container"]}`}>
+            <label>
+              <input
+                type="search"
+                placeholder="Search for items"
+                onChange={handleChange}
+                defaultValue={searchParams.get("query") || ""}
+                name="query"
+              />
+            </label>
+          </div>
 
-          <label htmlFor="search-bar">
-            <input
-              type="search"
-              placeholder="Search for items"
-              onChange={handleChange}
-              defaultValue={searchParams.get("query") || ""}
-              name="query"
-            />
-          </label>
           <div>
             <SearchBarFilter
               sellers={sellers}
@@ -40,7 +45,7 @@ export default function SearchBar({
               handleChange={handleChange}
             />
           </div>
-
+        </form>
       </div>
     </>
   );
