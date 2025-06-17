@@ -1,63 +1,52 @@
 "use client";
-import { useState } from "react";
+import { useState, useActionState } from "react";
 
-import { Rating } from "@/app/lib/definitions";
+import { Item, Rating } from "@/app/lib/definitions";
+import { createReview, ReviewState } from "@/app/lib/actions";
 import styles from "@/app/ui/product.module.css";
-import { starRating } from "@/app/lib/utils";
+import StarRating from "@/app/ui/star";
 
-type ReviewFormProps = { ratings: Rating[] };
+type ReviewFormProps = { ratings: Rating[], item: Item };
 
-export default function ReviewForm({ ratings }: ReviewFormProps) {
+export default function ReviewForm({ ratings, item }: ReviewFormProps) {
   const [rating, setRating] = useState(0);
+  const initialState: ReviewState = { errors: {}, message: "" };
+  const [state, formAction] = useActionState<ReviewState, FormData>(createReview, initialState);
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  // };
+
 
   return (
     <>
-      <form className={styles["ratings-form"]}>
+      <form className={styles["ratings-form"]} action={formAction}>
         <fieldset>
           <legend>Submit a Review</legend>
-          {/* <label htmlFor="reviewTitle">
-            Review Title:
-            <input
-              type="text"
-              id="reviewTitle"
-              name="reviewTitle"
-              placeholder="Enter review title"
-            />
-          </label> */}
+          <label htmlFor="reviewStars">
+            <div>
+              Rating:
+              <br />
+              <StarRating
+                rating={Number(rating)}
+                
+                editPreview={true}
+                onRatingChange={(val) => setRating(val)}
+              ></StarRating>
+            </div>
+          </label>
           <label htmlFor="reviewName">
             <div>Your Name:</div>
             <input
               type="text"
               id="reviewName"
-              name="reviewName"
+              name="name"
               placeholder="Enter your name"
             />
           </label>
-          <label htmlFor="reviewStars">
-            <div>Rating:</div>
-            <div className={styles["star-rating"]}>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star + "star"}
-                  onClick={() => starRating(star)}
-                  onMouseOver={() => starRating(star)}
-                  // onMouseLeave={() => setRating(0)}
-                  className={"star" + (rating >= star ? " filled" : "")}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
-          </label>
 
           <label htmlFor="reviewText">
-            <div>Review Text:</div>
-            <textarea id="reviewText" name="reviewText"></textarea>
+            <div>Review:</div>
+            <textarea id="reviewText" name="review"></textarea>
           </label>
+          <input type="hidden" name="item_id" value={item.id} />
 
           <button type="submit">Submit Review</button>
         </fieldset>

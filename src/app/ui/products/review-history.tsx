@@ -1,5 +1,5 @@
 import { Rating } from "@/app/lib/definitions";
-import { starRating } from "@/app/lib/utils";
+import StarRating from "@/app/ui/star";
 
 type ItemHistoryProps = {
   ratings: Rating[];
@@ -7,19 +7,24 @@ type ItemHistoryProps = {
 };
 
 
+
 export default function ReviewHistory({ ratings }: ItemHistoryProps) {
+  console.log( "Rating History", ratings );
   return (
     <>
-      <h2>Review History</h2>
+      <h2>Reviews</h2>
       <div>
         <ul>
           {ratings.map((rating) => (
             <li key={rating.id}>
-              hello {rating.name} rated this item{" "}
-              <span>
-                {starRating(rating.rating)} 
-              </span>
-              <p>{rating.review}</p>
+              <div>
+                <span>
+                  <h3>Name: {rating.name || "Anonymous"}</h3>
+                </span>
+                <StarRating rating={Number(rating.rating)}></StarRating>
+                
+                <p>{rating.review}</p>
+              </div>
             </li>
           ))}
         </ul>

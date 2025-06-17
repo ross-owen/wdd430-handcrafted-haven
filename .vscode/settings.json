@@ -1,0 +1,19 @@
+{
+  "sqltools.connections": [
+    {
+      "pgOptions": {
+        "ssl": {
+          "rejectUnauthorized": true
+        }
+      },
+      "previewLimit": 50,
+      "server": "ep-raspy-art-a4nukbn4.us-east-1.aws.neon.tech",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "database": "neondb",
+      "username": "neondb_owner",
+      "password": "npg_K6SQJL3coiRa",
+      "name": "Handcrafted Haven Project"
+    }
+  ]
+}

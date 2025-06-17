@@ -132,7 +132,8 @@ export async function fetchItemDetails(id: string) {
     items.modified,
     items.image_name
     FROM items
-    WHERE id = ${id}`;
+JOIN sellers ON items.seller_id = sellers.id
+    WHERE items.id = ${id}`;
     return items[0];
   } catch (error) {
     console.error("Database Error:", error);
@@ -142,7 +143,7 @@ export async function fetchItemDetails(id: string) {
 
 export async function fetchRatings(id: string) {
   try {
-
+console.log("Fetching ratings for item ID:", id);
     const ratings = await sql<Rating[]>`SELECT
     ratings.id,
     ratings.item_id,
@@ -150,9 +151,9 @@ export async function fetchRatings(id: string) {
     ratings.review,
     ratings.created
     FROM ratings
-    LEFT JOIN sellers ON ratings.seller_id = sellers.id
     WHERE ratings.item_id = ${id}
     `;
+    console.log("Ratings fetched:", ratings);
     return ratings;
   } catch (error) {
     console.error("Database Error:", error);

@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/app/ui/browse.module.css';
-import { fetchFilteredItems, fetchRandomItems } from '@/app/lib/data';
-import StarRating from './star';
+
 import { UUID } from 'crypto';
+
+import { fetchFilteredItems, fetchRandomItems } from '@/app/lib/data';
+import StarRating from '../star';
+
 
 export default async function ResultsTable({
 	query,
