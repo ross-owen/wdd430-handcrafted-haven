@@ -16,10 +16,6 @@ export const authConfig = {
                 return true;
             }
 
-            if (isOnProfile && !isLoggedIn) {
-                return false;
-            }
-
             if ((isOnLogin || isOnSignup) && isLoggedIn) {
                 return Response.redirect(new URL('/seller-profile', nextUrl));
             }
