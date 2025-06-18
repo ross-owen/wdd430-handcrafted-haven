@@ -53,7 +53,9 @@ export default async function ResultsTable({
 						<Link href={`/products/${item.id}`}>
 							<Image
 								className={styles['results-image']}
-								src={`/images/${item.image_name}`}
+								src={`data:image/webp;base64,${Buffer.from(
+									item.image_name
+								).toString('base64')}`}
 								width={600}
 								height={600}
 								alt={`${item.title} product image`}
