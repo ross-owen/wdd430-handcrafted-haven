@@ -1,6 +1,9 @@
 import { Suspense, lazy } from 'react';
 
-import { fetchCategories, fetchSellerByEmail } from '@/app/lib/data';
+import {
+	fetchCategories,
+	fetchSellerFilteredDataByEmail,
+} from '@/app/lib/data';
 import { Metadata } from 'next';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
@@ -22,7 +25,7 @@ export default async function Page() {
 		redirect('/login');
 	}
 
-	const seller = await fetchSellerByEmail(session.user.email);
+	const seller = await fetchSellerFilteredDataByEmail(session.user.email);
 	if (!seller) {
 		redirect('/login');
 	}

@@ -9,9 +9,10 @@ import {updateSeller, UpdateSellerState} from "@/app/lib/actions";
 
 interface SellerProfileDetailProps {
   seller: Seller;
+  image: string;
 }
 
-export default function SellerProfileUpdate({seller}: SellerProfileDetailProps) {
+export default function SellerProfileUpdate({seller, image}: SellerProfileDetailProps) {
   const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {
       month: 'short',
@@ -112,9 +113,7 @@ export default function SellerProfileUpdate({seller}: SellerProfileDetailProps) 
 				className={`${styles['near-max-width']} ${styles['seller-pic']}`}
 			>
 				<Image
-					src={`data:image/webp;base64,${Buffer.from(seller.profile_pic).toString(
-						'base64'
-					)}`}
+					src={image}
 					alt={`${seller.first_name} ${seller.last_name}`}
 					width={300}
 					height={450}
