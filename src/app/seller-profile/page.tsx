@@ -3,7 +3,7 @@ import {auth} from '@/auth';
 import {redirect} from 'next/navigation';
 import { Suspense, lazy } from "react";
 // import SellerProfileDetail from "@/app/ui/seller-profile/seller-profile-detail";
-import {fetchSellerByEmail} from "@/app/lib/data";
+import {fetchSellerByEmail, fetchSellerFilteredDataByEmail, fetchSellerProfilePicByEmail} from "@/app/lib/data";
 import ResultsTable from "@/app/ui/browse/results";
 import Link from "next/link";
 import styles from "@/app/ui/seller-profile/seller.module.css"
@@ -23,15 +23,20 @@ export default async function SellerProfile() {
     redirect('/login');
   }
 
-  const seller = await fetchSellerByEmail(session.user.email);
+  const seller = await fetchSellerFilteredDataByEmail(session.user.email);
   if (!seller) {
     redirect('/login');
   }
-
+  const profile_image = await fetchSellerProfilePicByEmail(session.user.email);
   return (
 		<main>
 			<Suspense fallback={<div>Loading...</div>}>
-				<SellerProfileUpdate seller={seller} />
+				<SellerProfileUpdate
+					seller={seller}
+					image={`data:image/webp;base64,${Buffer.from(
+						profile_image.profile_pic
+					).toString('base64')}`}
+				/>
 			</Suspense>
 			<section>
 				<div className={styles.items}>

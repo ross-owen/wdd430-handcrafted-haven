@@ -209,6 +209,18 @@ export async function fetchSellerByEmail(email: string) {
 	return data[0]
 }
 
+export async function fetchSellerFilteredDataByEmail(email: string) {
+	const data = await sql<
+		Seller[]
+	>`SELECT id, first_name, last_name, email, description, location FROM sellers WHERE email = ${email}`;
+	return data[0];
+}
+
+export async function fetchSellerProfilePicByEmail(email: string) {
+  	const data = await sql`SELECT profile_pic FROM sellers WHERE email = ${email}`;
+		return data[0];
+}
+
 export async function fetchSellerById(id: string) {
 	const data = await sql<Seller[]>`SELECT * FROM sellers WHERE id = ${id}`;
 	return data[0]
