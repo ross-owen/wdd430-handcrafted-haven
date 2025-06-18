@@ -1,5 +1,6 @@
 "use client";
 import { useState, useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import { Item, Rating } from "@/app/lib/definitions";
 import { createReview, ReviewState } from "@/app/lib/actions";
@@ -16,6 +17,7 @@ export default function ReviewForm({ ratings, item }: ReviewFormProps) {
     initialState
   );
   const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (
@@ -24,6 +26,7 @@ export default function ReviewForm({ ratings, item }: ReviewFormProps) {
       Object.keys(state.errors).length === 0
     ) {
       setSubmitted(true);
+      router.refresh();
     }
   }, [state]);
   if (submitted) {
