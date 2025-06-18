@@ -1,18 +1,16 @@
 ﻿"use server";
 
-
-import { signIn } from '@/auth';
-import { AuthError } from 'next-auth';
-import { z } from 'zod';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import postgres from 'postgres';
-import { writeFile } from 'fs/promises';
-import path from 'path';
-import bcrypt from 'bcryptjs';
-import sharp from 'sharp';
-import { file } from 'zod/v4';
-
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
+import { z } from "zod";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import postgres from "postgres";
+import { writeFile } from "fs/promises";
+import path from "path";
+import bcrypt from "bcryptjs";
+import sharp from "sharp";
+import { file } from "zod/v4";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
@@ -96,18 +94,15 @@ export async function createItem(prevState: ItemState, formData: FormData) {
     };
   }
 
+  const fileBuffer = Buffer.from(await imageName.arrayBuffer());
+  const imageFile = `${Date.now()}_${imageName.name.split(".")[0]}.webp`;
+  const filePath = path.join(process.cwd(), "public/images", imageFile);
 
-
-	const fileBuffer = Buffer.from(await imageName.arrayBuffer());
-	const imageFile = `${Date.now()}_${imageName.name.split('.')[0]}.webp`;
-	const filePath = path.join(process.cwd(), 'public/images', imageFile);
-
-	// Optimize with sharp
-	await sharp(fileBuffer)
-		.resize({ width: 600, height: 600, fit: 'inside' }) // Maintain aspect ratio
-		.webp({ quality: 75 })
-		.toFile(filePath);
-
+  // Optimize with sharp
+  await sharp(fileBuffer)
+    .resize({ width: 600, height: 600, fit: "inside" }) // Maintain aspect ratio
+    .webp({ quality: 75 })
+    .toFile(filePath);
 
   const { seller_id, category_id, price, description, title } =
     validatedFields.data;
@@ -212,16 +207,15 @@ export async function createSeller(prevState: SellerState, formData: FormData) {
     };
   }
 
-	const fileBuffer = Buffer.from(await profilePicFile.arrayBuffer());
-	const fileName = `${Date.now()}_${profilePicFile.name.split('.')[0]}.webp`;
-	const filePath = path.join(process.cwd(), 'public/images', fileName);
+  const fileBuffer = Buffer.from(await profilePicFile.arrayBuffer());
+  const fileName = `${Date.now()}_${profilePicFile.name.split(".")[0]}.webp`;
+  const filePath = path.join(process.cwd(), "public/images", fileName);
 
-	// Optimize with sharp
-	await sharp(fileBuffer)
-		.resize({ width: 600, height: 600, fit: 'inside' }) // Maintain aspect ratio
-		.webp({ quality: 75 })
-		.toFile(filePath);
-
+  // Optimize with sharp
+  await sharp(fileBuffer)
+    .resize({ width: 600, height: 600, fit: "inside" }) // Maintain aspect ratio
+    .webp({ quality: 75 })
+    .toFile(filePath);
 
   const { first_name, last_name, description, location, email, password } =
     validatedFields.data;
@@ -253,12 +247,10 @@ export async function updateSeller(
     location: formData.get("location"),
   });
 
-console.log("Parse success?", validatedFields.success);
-if (!validatedFields.success) {
-  console.log("Zod error:", validatedFields.error.flatten().fieldErrors);
-}
-
-
+  console.log("Parse success?", validatedFields.success);
+  if (!validatedFields.success) {
+    console.log("Zod error:", validatedFields.error.flatten().fieldErrors);
+  }
 
   if (!validatedFields.success) {
     return {
@@ -299,10 +291,10 @@ export type ReviewState = {
     item_id?: string[];
     rating?: string[];
     review?: string[];
-	name?: string[];
-	created?: string[];
+    name?: string[];
+    created?: string[];
   };
-  message: string ;
+  message: string;
 };
 
 export async function createReview(prevState: ReviewState, formData: FormData) {
@@ -311,10 +303,10 @@ export async function createReview(prevState: ReviewState, formData: FormData) {
     rating: formData.get("rating"),
     review: formData.get("review"),
     created: new Date(),
-	name: formData.get("name"),	
+    name: formData.get("name"),
   });
 
-console.log("Raw rating value:", formData);
+  console.log("Raw rating value:", formData);
 
   if (!validatedFields.success) {
     return {
@@ -325,17 +317,18 @@ console.log("Raw rating value:", formData);
 
   console.log("createReview called");
 
-
   const { item_id, rating, review, name } = validatedFields.data;
   const created = new Date().toISOString().split("T")[0];
 
   try {
-	console.log("Attempting to insert review:", { item_id, rating, review, created, name });
-    const response = await sql`
-        INSERT INTO ratings (item_id, rating, review, created, name)
-        VALUES (${item_id}, ${rating}, ${review}, ${created}, ${name})`;
 
-	  console.log("Review inserted successfully:", response);
+
+    const response = await sql`
+		INSERT INTO ratings (item_id, rating, review, created, name)
+		VALUES (${item_id}, ${rating}, ${review}, ${created}, ${name})`;
+
+    return { message: "Review created successfully.", errors: {} };
+
   } catch (error) {
     console.error("Error creating review:", error);
     return {
