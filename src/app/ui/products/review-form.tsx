@@ -1,19 +1,34 @@
 "use client";
-import { useState, useActionState } from "react";
+import { useState, useActionState, useEffect } from "react";
 
 import { Item, Rating } from "@/app/lib/definitions";
 import { createReview, ReviewState } from "@/app/lib/actions";
 import styles from "@/app/ui/product.module.css";
 import StarRating from "@/app/ui/star";
 
-type ReviewFormProps = { ratings: Rating[], item: Item };
+type ReviewFormProps = { ratings: Rating[]; item: Item };
 
 export default function ReviewForm({ ratings, item }: ReviewFormProps) {
   const [rating, setRating] = useState(0);
   const initialState: ReviewState = { errors: {}, message: "" };
-  const [state, formAction] = useActionState<ReviewState, FormData>(createReview, initialState);
+  const [state, formAction] = useActionState<ReviewState, FormData>(
+    createReview,
+    initialState
+  );
+  const [submitted, setSubmitted] = useState(false);
 
-
+  useEffect(() => {
+    if (
+      state.message &&
+      state.errors &&
+      Object.keys(state.errors).length === 0
+    ) {
+      setSubmitted(true);
+    }
+  }, [state]);
+  if (submitted) {
+    return <p>Thank you for submitting your review!</p>;
+  }
 
   return (
     <>
@@ -26,7 +41,6 @@ export default function ReviewForm({ ratings, item }: ReviewFormProps) {
               <br />
               <StarRating
                 rating={Number(rating)}
-                
                 editPreview={true}
                 onRatingChange={(val) => setRating(val)}
               ></StarRating>
