@@ -23,28 +23,34 @@ export default function SellerProfileDetail({seller}: SellerProfileDetailProps) 
   const since = seller.created ? formatDate(new Date(seller.created)) : '';
 
   return (
-      <div className={styles['seller-wrapper']}>
-        <section>
-          <h1 className={`${inter.className}`}>
-            {seller.first_name} {seller.last_name}
-          </h1>
-          <div className={styles.fieldset}>
-            <h4>Location</h4>
-            <p>{seller.location}</p>
-          </div>
-          <div className={styles.fieldset}>
-            <h4>Biography</h4>
-            <p>{seller.description}</p>
-          </div>
-          <div className={styles.fieldset}>
-            <h4>Member Since</h4>
-            <p>{since}</p>
-          </div>
-        </section>
-        <section>
-          <Image src={`/images/${seller.profile_pic}`} alt={`${seller.first_name} ${seller.last_name}`} width={300}
-                 height={450}/>
-        </section>
-      </div>
-  );
+		<div className={styles['seller-wrapper']}>
+			<section>
+				<h1 className={`${inter.className}`}>
+					{seller.first_name} {seller.last_name}
+				</h1>
+				<div className={styles.fieldset}>
+					<h4>Location</h4>
+					<p>{seller.location}</p>
+				</div>
+				<div className={styles.fieldset}>
+					<h4>Biography</h4>
+					<p>{seller.description}</p>
+				</div>
+				<div className={styles.fieldset}>
+					<h4>Member Since</h4>
+					<p>{since}</p>
+				</div>
+			</section>
+			<section>
+				<Image
+					src={`data:image/webp;base64,${Buffer.from(seller.profile_pic).toString(
+						'base64'
+					)}`}
+					alt={`${seller.first_name} ${seller.last_name}`}
+					width={300}
+					height={450}
+				/>
+			</section>
+		</div>
+	);
 }

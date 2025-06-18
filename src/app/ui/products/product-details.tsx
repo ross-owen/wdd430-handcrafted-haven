@@ -13,33 +13,35 @@ type ItemDetailsProps = {
 
 export default function ItemDetails({ item, ratings }: ItemDetailsProps) {
   return (
-    <>
-      <section className={styles.itemDetails}>
-        <div>
-          <div>
-            <Image
-              src={`/images/${item.image_name}`}
-              width={250}
-              height={300}
-              alt={item.image_name || "Product Image"}
-            />
-          </div>
-          <div>
-            <h1>{item.title}</h1>
-            <p>{item.description}</p>
-            <div>
-              <span>Price: </span>
-              {item.price}
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div>
-          <ReviewForm ratings={ratings} item={item} />
-          <ReviewHistory ratings={ratings} />
-        </div>
-      </section>
-    </>
-  );
+		<>
+			<section className={styles.itemDetails}>
+				<div>
+					<div>
+						<Image
+							src={`data:image/webp;base64,${Buffer.from(
+								item.image_name
+							).toString('base64')}`}
+							width={250}
+							height={300}
+							alt={item.image_name || 'Product Image'}
+						/>
+					</div>
+					<div>
+						<h1>{item.title}</h1>
+						<p>{item.description}</p>
+						<div>
+							<span>Price: </span>
+							{item.price}
+						</div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div>
+					<ReviewForm ratings={ratings} item={item} />
+					<ReviewHistory ratings={ratings} />
+				</div>
+			</section>
+		</>
+	);
 }
