@@ -28,7 +28,7 @@ export default function ReviewForm({ ratings, item }: ReviewFormProps) {
       setSubmitted(true);
       router.refresh();
     }
-  }, [state]);
+  }, [state, router]);
   if (submitted) {
     return <p>Thank you for submitting your review!</p>;
   }

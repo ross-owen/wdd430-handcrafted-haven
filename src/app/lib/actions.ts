@@ -323,7 +323,7 @@ export async function createReview(prevState: ReviewState, formData: FormData) {
   try {
 
 
-    let response = await sql`
+    const response = await sql`
 		INSERT INTO ratings (item_id, rating, review, created, name)
 		VALUES (${item_id}, ${rating}, ${review}, ${created}, ${name})`;
 
