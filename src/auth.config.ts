@@ -7,13 +7,8 @@ export const authConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isLoggingOut = nextUrl.pathname === '/logout';
             const isOnLogin = nextUrl.pathname === '/login';
             const isOnSignup = nextUrl.pathname === '/sign-up';
-
-            if (isLoggingOut) {
-                return true;
-            }
 
             if ((isOnLogin || isOnSignup) && isLoggedIn) {
                 return Response.redirect(new URL('/seller-profile', nextUrl));
@@ -23,5 +18,5 @@ export const authConfig = {
         },
     },
     providers: [],
-    secret: process.env.NEXT_PUBLIC_SECRET,
+    secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
