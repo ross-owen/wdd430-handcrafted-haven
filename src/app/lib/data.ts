@@ -12,6 +12,7 @@ export async function fetchFilteredItems(
 	seller_id: string,
 	category_id: string,
 	rating: string,
+  price_range: string,
 	currentPage: number
 ) {
 	const offset = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -50,6 +51,15 @@ export async function fetchFilteredItems(
         ) = ${rating}
       `);
 		}
+
+    if (price_range) {
+      if (price_range === '500+') {
+        filters.push(sql`items.price >= 500`);
+      } else {
+        const [minPrice, maxPrice] = price_range.split('-').map(Number);
+        filters.push(sql`items.price BETWEEN ${minPrice} AND ${maxPrice}`);
+      }
+    }
 
 		let whereClause = sql``;
 		if (filters.length > 0) {
@@ -149,7 +159,8 @@ console.log("Fetching ratings for item ID:", id);
     ratings.item_id,
     ratings.rating,
     ratings.review,
-    ratings.created
+    ratings.created,
+    ratings.name
     FROM ratings
     WHERE ratings.item_id = ${id}
     `;

@@ -2,8 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/app/ui/browse.module.css';
 
-import { UUID } from 'crypto';
-
 import { fetchFilteredItems, fetchRandomItems } from '@/app/lib/data';
 import StarRating from '../star';
 
@@ -15,6 +13,7 @@ export default async function ResultsTable({
 	rating,
 	currentPage,
 	random,
+	price_range,
 }: {
 	query: string;
 	seller_id: string,
@@ -22,6 +21,7 @@ export default async function ResultsTable({
 	rating: string,
 	currentPage: number;
 	random: boolean;
+	price_range: string;
 }) {
 
 	let items = [];
@@ -35,6 +35,7 @@ export default async function ResultsTable({
 					seller_id,
 					category_id,
 					rating,
+					price_range,
 					currentPage
 				);
 		}

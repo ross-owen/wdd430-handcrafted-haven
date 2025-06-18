@@ -23,6 +23,7 @@ export default function Home() {
 					random={true}
 					currentPage={1}
 					rating={''}
+					price_range={''}
 				/>
 			</Suspense>
 		</main>
